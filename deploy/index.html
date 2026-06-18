@@ -281,6 +281,87 @@
     /* 操作系UIは印刷しない */
     .nav,.counter,.hint,.progress{ display:none !important; }
   }
+
+  /* ============================================================
+     レスポンシブ：スマホ・縦タブレット（〜860px）
+     16:9固定デッキを「1スライド＝縦スクロール1ページ」に再構成。
+     vw基準のサイズ（インラインstyle含む）を読みやすいpxへ再マッピング。
+     ※デスクトップ／横画面（861px以上）は一切変更しない。
+     ============================================================ */
+  @media (max-width:860px){
+    /* --- スクロール解放：各スライドを縦に伸ばして送る --- */
+    html,body{height:auto;overflow-x:hidden;overflow-y:auto;}
+    body{background:#0c1118;}
+    .deck{height:auto;width:100%;}
+    .slide{
+      position:relative;inset:auto;
+      height:auto;min-height:100vh;min-height:100dvh;
+      padding:54px 18px 92px !important;
+      overflow:visible;
+    }
+    .slide:not(.title):not(.summary)::after{display:none;} /* 装飾ウォーターマーク非表示 */
+
+    /* --- ロゴ：右上に小さく固定 --- */
+    .slide > img{top:12px !important;right:12px !important;height:30px !important;width:auto !important;}
+
+    /* --- マルチカラムを1列に積む --- */
+    .twocol,.cft,.ca,.metrics,.cacmp,.pf,.summary .wheel{flex-direction:column !important;align-items:stretch !important;}
+    .twocol{gap:14px;}.cft,.ca,.metrics,.cacmp{gap:16px;}
+    .subjects{grid-template-columns:1fr !important;}
+    .slide > div[style*="display:flex"]{flex-direction:column !important;gap:12px !important;}
+    .kpi-row{flex-wrap:wrap !important;gap:8px !important;}
+    .kpi{flex:1 1 42% !important;}
+    .pf table,.metrics .chart,.ca .panel .chart,.cacmp .lcol,.cacmp .tbars{flex:none !important;width:100%;}
+
+    /* --- ライフサイクル：横レール→縦カード --- */
+    .lifecycle{margin-top:1.5vh;}
+    .lc-rail{display:none !important;}
+    .lc-labels{flex-direction:column !important;gap:10px;margin-top:0;}
+    .lc-col{flex:none !important;text-align:left !important;padding:14px !important;background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(20,40,70,.07);}
+    .lc-col .who{margin-top:6px;}
+
+    /* --- 比較テーブル：折返し許可＋小型化 --- */
+    table{margin-top:14px;}
+    th,td{padding:8px 9px !important;}
+    tbody th{width:auto !important;}
+
+    /* --- T字比較表・各種パディング微調整 --- */
+    .vtbar>div{padding:8px 6px !important;}
+    .cacmp .pt .n{width:22px !important;height:22px !important;font-size:12px !important;}
+    .cft-tree .cfr.indent{margin-left:14px !important;}
+    .accent-bar{margin:14px 0;}
+
+    /* --- 操作UI --- */
+    .counter{font-size:12px !important;left:14px;bottom:14px;}
+    .nav{right:14px;bottom:14px;}
+    .hint{display:none !important;}
+
+    /* ===== フォント再マッピング（vw → 固定px） ===== */
+    /* 見出し系 */
+    .title h1,[style*="font-size:4vw"]{font-size:27px !important;}
+    h1,[style*="font-size:3.4vw"],[style*="font-size:3.6vw"]{font-size:26px !important;line-height:1.35 !important;}
+    .summary h1,[style*="font-size:3.2vw"]{font-size:25px !important;line-height:1.4 !important;}
+    .benefit .ico,[style*="font-size:2.4vw"]{font-size:23px !important;}
+    h2,[style*="font-size:2.45vw"],[style*="font-size:2.2vw"],[style*="font-size:2.1vw"]{font-size:21px !important;line-height:1.35 !important;}
+    .card h3,.kpi .k,[style*="font-size:1.9vw"]{font-size:20px !important;}
+    .tier .t-name,.wheel .w h4,.summary .punch,[style*="font-size:1.7vw"]{font-size:18px !important;}
+    .title .sub,.grow-note b,[style*="font-size:1.6vw"],[style*="font-size:1.55vw"]{font-size:17px !important;}
+    .benefit .bt,.lc-col .ttl,.ca .panel h4,.cfr.sub,[style*="font-size:1.5vw"],[style*="font-size:1.45vw"]{font-size:16px !important;}
+    /* 本文系 */
+    .lead,.card .big,.cft-note .nbox h4,.mcard .mt,[style*="font-size:1.4vw"],[style*="font-size:1.35vw"]{font-size:15.5px !important;line-height:1.6 !important;}
+    p,.card li,.subj .nm,.cfr,.grow-note,[style*="font-size:1.3vw"],[style*="font-size:1.28vw"],[style*="font-size:1.25vw"],[style*="font-size:1.22vw"],[style*="font-size:1.2vw"]{font-size:15px !important;line-height:1.6 !important;}
+    .tier .t-sub,.benefit .bd,.wheel .w p,.pyr-note,.cft-note .nbox p,.mcard .md,.cacmp .pt .tx,[style*="font-size:1.18vw"],[style*="font-size:1.15vw"],[style*="font-size:1.12vw"],[style*="font-size:1.1vw"]{font-size:14px !important;line-height:1.55 !important;}
+    table,thead th,.extag,.lc-col .dd,.subj .code,.tbar-cap,.title .tag,.mcard .mt small,[style*="font-size:1.05vw"],[style*="font-size:1.02vw"],[style*="font-size:1vw"]{font-size:13px !important;}
+    .eyebrow{font-size:11px !important;margin-bottom:10px;}
+    .subj .ds,[style*="font-size:.98vw"]{font-size:12.5px !important;}
+    .kpi .kl,[style*="font-size:.95vw"],[style*="font-size:.92vw"]{font-size:12px !important;}
+    [style*="font-size:.84vw"],[style*="font-size:.82vw"],[style*="font-size:.74vw"]{font-size:11px !important;}
+
+    /* ===== アイコン（vw → 固定px） ===== */
+    [style*="width:2.6vw"]{width:26px !important;height:26px !important;}
+    [style*="width:3vw"]{width:28px !important;height:28px !important;}
+    [style*="width:1.7vw"]{width:18px !important;height:18px !important;}
+  }
 </style>
 </head>
 <body>
@@ -883,6 +964,7 @@
   function show(n){
     i=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    window.scrollTo(0,0); /* モバイル：新しいスライドは先頭から表示 */
     counter.textContent=(i+1)+' / '+slides.length;
     prog.style.width=((i)/(slides.length-1)*100)+'%';
     // counter color on dark slides
@@ -896,6 +978,13 @@
     if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
     if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
   });
+  /* モバイル：横スワイプでページ送り（縦スクロールは妨げない） */
+  let tx=0,ty=0;
+  document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5){ show(dx<0?i+1:i-1); }
+  },{passive:true});
   show(0);
 </script>
 </body>
