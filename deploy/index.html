@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCIM と CPM の違い ｜ 不動産オーナー様向け</title>
+<style>
+  :root{
+    --pm:#0f8a6e;        /* CPM = 運営の緑 */
+    --pm-d:#0a5f4c;
+    --pm-l:#e3f5ef;
+    --ccim:#1f5fa8;      /* CCIM = 投資の青 */
+    --ccim-d:#143f70;
+    --ccim-l:#e6eef8;
+    --ink:#1b2430;
+    --sub:#5a6573;
+    --line:#e2e6ec;
+    --amber:#e0962a;
+    --bg:#f4f6f9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+    background:#0c1118;color:var(--ink);overflow:hidden;
+  }
+  .deck{height:100vh;width:100vw;position:relative;}
+  .slide{
+    position:absolute;inset:0;display:none;flex-direction:column;
+    padding:7vh 7vw 6vh;overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 100% -10%, #eaf0f7 0%, rgba(234,240,247,0) 60%),
+      radial-gradient(900px 500px at -10% 110%, #eef5f1 0%, rgba(238,245,241,0) 55%),
+      linear-gradient(180deg,#fbfcfe 0%,#eef2f7 100%);
+    animation:fade .4s cubic-bezier(.2,.7,.2,1);
+  }
+  .slide.active{display:flex;}
+  /* brand top strip on content slides */
+  .slide:not(.title):not(.summary)::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:7px;
+    background:linear-gradient(90deg,var(--pm) 0%,var(--pm) 48%,var(--amber) 50%,var(--ccim) 52%,var(--ccim) 100%);
+  }
+  /* faint decorative watermark */
+  .slide:not(.title):not(.summary)::after{
+    content:"";position:absolute;right:-6vw;bottom:-8vw;width:30vw;height:30vw;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(31,95,168,.06), rgba(15,138,110,.05) 60%, transparent 70%);
+    pointer-events:none;z-index:0;
+  }
+  .slide > *{position:relative;z-index:1;}
+  @keyframes fade{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+
+  h1{font-size:3.4vw;line-height:1.3;letter-spacing:.01em;color:#13202f;}
+  h2{font-size:2.45vw;line-height:1.3;margin-bottom:.5em;color:#13202f;letter-spacing:.005em;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.7em;font-size:1.02vw;font-weight:800;letter-spacing:.16em;color:var(--sub);margin-bottom:1.6vh;text-transform:uppercase;}
+  .eyebrow::before{content:"";width:1.7em;height:3px;border-radius:2px;background:var(--amber);}
+  .lead{font-size:1.45vw;color:var(--sub);line-height:1.7;}
+  p{font-size:1.35vw;line-height:1.7;}
+  .accent-bar{width:64px;height:6px;border-radius:3px;background:var(--amber);margin:2.2vh 0;}
+
+  /* ===== title ===== */
+  .title{
+    background:
+      radial-gradient(800px 800px at 85% 15%, rgba(31,95,168,.55), transparent 60%),
+      radial-gradient(700px 700px at 10% 95%, rgba(224,150,42,.28), transparent 55%),
+      linear-gradient(135deg,#0a1d33 0%,#0d3a3b 100%);
+    color:#fff;justify-content:center;overflow:hidden;
+  }
+  .title::after{
+    content:"";position:absolute;right:-12vw;top:-12vw;width:42vw;height:42vw;border-radius:50%;
+    border:2px solid rgba(255,255,255,.08);box-shadow:0 0 0 6vw rgba(255,255,255,.03);
+  }
+  .title > *{position:relative;z-index:1;}
+  .title h1{font-size:4vw;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.25);}
+  .title .sub{font-size:1.6vw;color:#cfe6dd;margin-top:2.5vh;line-height:1.7;}
+  .title .tags{margin-top:5vh;display:flex;gap:14px;flex-wrap:wrap;}
+  .title .tag{padding:.6em 1.3em;border-radius:999px;font-size:1.1vw;font-weight:700;}
+  .tag.t-pm{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);}
+  .tag.t-ccim{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);}
+
+  /* ===== two brain ===== */
+  .twocol{display:flex;gap:3vw;flex:1;align-items:stretch;margin-top:1vh;}
+  .card{
+    flex:1;border-radius:18px;padding:3vh 2.4vw;background:#fff;
+    box-shadow:0 10px 30px rgba(20,40,70,.07);border-top:8px solid var(--line);
+    display:flex;flex-direction:column;
+  }
+  .card.pm{border-top-color:var(--pm);}
+  .card.ccim{border-top-color:var(--ccim);}
+  .card .badge{display:inline-block;font-weight:800;font-size:1.05vw;letter-spacing:.06em;padding:.35em .9em;border-radius:8px;margin-bottom:1.6vh;}
+  .pm .badge{background:var(--pm-l);color:var(--pm-d);}
+  .ccim .badge{background:var(--ccim-l);color:var(--ccim-d);}
+  .card h3{font-size:1.9vw;margin-bottom:1vh;}
+  .pm h3{color:var(--pm-d);}
+  .ccim h3{color:var(--ccim-d);}
+  .card .big{font-size:1.4vw;color:var(--sub);line-height:1.65;}
+  .card ul{list-style:none;margin-top:2vh;}
+  .card li{font-size:1.25vw;padding:.9vh 0 .9vh 1.7em;position:relative;line-height:1.5;border-top:1px solid var(--line);}
+  .card li:first-child{border-top:none;}
+  .card li::before{content:"";position:absolute;left:0;top:1.6vh;width:.7em;height:.7em;border-radius:50%;}
+  .pm li::before{background:var(--pm);}
+  .ccim li::before{background:var(--ccim);}
+
+  /* ===== pyramid ===== */
+  .pyramid{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:2vh;flex:1;justify-content:center;}
+  .tier{border-radius:14px;color:#fff;padding:2.2vh 2vw;text-align:center;box-shadow:0 8px 22px rgba(20,40,70,.12);}
+  .tier .t-name{font-size:1.7vw;font-weight:800;}
+  .tier .t-sub{font-size:1.15vw;opacity:.92;margin-top:.4vh;}
+  .tier.t3{width:48%;background:linear-gradient(135deg,var(--ccim),var(--ccim-d));}
+  .tier.t2{width:64%;background:linear-gradient(135deg,var(--pm),var(--pm-d));}
+  .tier.t1{width:82%;background:linear-gradient(135deg,#7d8896,#5a6573);}
+  .pyr-note{display:flex;justify-content:space-between;width:84%;margin:1.5vh auto 0;font-size:1.1vw;color:var(--sub);}
+
+  /* ===== table ===== */
+  table{width:100%;border-collapse:collapse;margin-top:2vh;font-size:1.2vw;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(20,40,70,.07);}
+  th,td{padding:1.5vh 1.4vw;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  thead th{background:#1b2430;color:#fff;font-size:1.15vw;}
+  thead th.c-pm{background:var(--pm-d);}
+  thead th.c-ccim{background:var(--ccim-d);}
+  tbody th{font-weight:700;color:var(--sub);width:18%;background:#fafbfc;}
+  td.pm-cell{color:var(--pm-d);}
+  td.ccim-cell{color:var(--ccim-d);}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:none;}
+
+  /* subjects grid */
+  .subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:.9vh 1.4vw;margin-top:1.4vh;flex:1;align-content:start;}
+  .subj{background:#fff;border-radius:12px;padding:1.25vh 1.3vw;box-shadow:0 6px 18px rgba(20,40,70,.06);border-left:6px solid var(--pm);}
+  .subj.b{border-left-color:var(--ccim);}
+  .subj .code{font-weight:800;font-size:1vw;color:var(--pm-d);letter-spacing:.04em;}
+  .subj.b .code{color:var(--ccim-d);}
+  .subj .nm{font-size:1.22vw;font-weight:700;margin-top:.2vh;}
+  .subj .ds{font-size:.98vw;color:var(--sub);margin-top:.35vh;line-height:1.45;}
+
+  /* benefit list */
+  .benefits{display:flex;flex-direction:column;gap:1.4vh;margin-top:2vh;flex:1;justify-content:center;}
+  .benefit{display:flex;gap:1.4vw;align-items:flex-start;background:#fff;border-radius:12px;padding:2vh 2vw;box-shadow:0 6px 18px rgba(20,40,70,.06);}
+  .benefit .ico{font-size:2.4vw;line-height:1;}
+  .benefit .bt{font-size:1.5vw;font-weight:700;}
+  .benefit .bd{font-size:1.15vw;color:var(--sub);margin-top:.4vh;line-height:1.55;}
+
+  /* lifecycle */
+  .lifecycle{display:flex;flex-direction:column;margin-top:4vh;flex:1;justify-content:center;}
+  .lc-rail{display:flex;position:relative;}
+  .lc-rail::before{content:"";position:absolute;top:50%;left:12.5%;right:12.5%;height:4px;background:var(--line);transform:translateY(-50%);z-index:0;}
+  .lc-rail .node{flex:1;display:flex;justify-content:center;position:relative;z-index:1;}
+  .node .dot{width:1.9vw;height:1.9vw;border-radius:50%;border:5px solid #fff;box-shadow:0 3px 10px rgba(20,40,70,.18);}
+  .lc-labels{display:flex;margin-top:2.6vh;}
+  .lc-col{flex:1;text-align:center;padding:0 .9vw;}
+  .lc-col .ttl{font-size:1.5vw;font-weight:800;}
+  .lc-col .who{display:inline-block;font-size:1.2vw;font-weight:800;margin-top:1vh;padding:.4em 1em;border-radius:999px;}
+  .lc-col .dd{font-size:1.05vw;color:var(--sub);margin-top:1.2vh;line-height:1.5;}
+  .ph-ccim .dot{background:var(--ccim);} .ph-ccim .who{background:var(--ccim-l);color:var(--ccim-d);}
+  .ph-pm .dot{background:var(--pm);} .ph-pm .who{background:var(--pm-l);color:var(--pm-d);}
+
+  /* summary */
+  .summary{background:linear-gradient(135deg,#0d2440,#0a5f4c 130%);color:#fff;justify-content:center;}
+  .summary h1{color:#fff;font-size:3.2vw;}
+  .summary .wheel{display:flex;gap:3vw;margin-top:5vh;}
+  .wheel .w{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:3vh 2vw;}
+  .wheel .w h4{font-size:1.7vw;margin-bottom:1vh;}
+  .wheel .w p{font-size:1.2vw;color:#d6e4dd;line-height:1.6;}
+  .summary .punch{margin-top:5vh;font-size:1.7vw;font-weight:700;text-align:center;color:#ffe3b0;}
+
+  /* ===== example tag ===== */
+  .extag{display:inline-block;font-size:1vw;font-weight:700;color:var(--sub);background:#eef1f5;border:1px solid var(--line);border-radius:8px;padding:.35em .9em;margin-bottom:1.4vh;}
+  .extag b{color:var(--ink);}
+
+  /* ===== cash flow tree ===== */
+  .cft{display:flex;gap:3vw;flex:1;align-items:center;}
+  .cft-tree{flex:1.2;display:flex;flex-direction:column;gap:.7vh;}
+  .cfr{display:flex;align-items:center;justify-content:space-between;padding:1.15vh 1.4vw;border-radius:10px;font-size:1.25vw;background:#fff;box-shadow:0 3px 10px rgba(20,40,70,.05);}
+  .cfr .lbl{font-weight:600;}
+  .cfr .val{font-weight:800;font-variant-numeric:tabular-nums;}
+  .cfr.inc .val{color:var(--pm-d);}
+  .cfr.ded{color:#b03b3b;} .cfr.ded .val{color:#b03b3b;}
+  .cfr.sub{background:linear-gradient(135deg,var(--pm),var(--pm-d));color:#fff;font-size:1.45vw;box-shadow:0 6px 16px rgba(15,138,110,.3);}
+  .cfr.sub .val{color:#fff;}
+  .cfr.indent{margin-left:2.2vw;background:#f7f9fb;box-shadow:none;}
+  .cft-note{flex:.85;}
+  .cft-note .nbox{background:#fff;border-radius:14px;padding:2.4vh 1.8vw;box-shadow:0 8px 22px rgba(20,40,70,.07);border-left:6px solid var(--pm);}
+  .cft-note .nbox h4{font-size:1.4vw;color:var(--pm-d);margin-bottom:1vh;}
+  .cft-note .nbox p{font-size:1.1vw;color:var(--sub);line-height:1.6;}
+  .kpi-row{display:flex;gap:1vw;margin-top:1.6vh;}
+  .kpi{flex:1;background:var(--pm-l);border-radius:10px;padding:1.4vh 1vw;text-align:center;}
+  .kpi .k{font-size:1.9vw;font-weight:800;color:var(--pm-d);}
+  .kpi .kl{font-size:.95vw;color:var(--sub);margin-top:.3vh;}
+
+  /* ===== proforma + chart ===== */
+  .pf{display:flex;gap:2.5vw;flex:1;align-items:center;}
+  .pf table{font-size:1.05vw;margin-top:0;flex:1;}
+  .pf th,.pf td{padding:1vh .7vw;}
+  .pf .chart{flex:1.1;}
+  .legend{display:flex;gap:1.6vw;font-size:1.05vw;margin-top:1vh;justify-content:center;}
+  .legend span{display:flex;align-items:center;gap:.4em;}
+  .legend i{width:1.4em;height:.4em;border-radius:2px;display:inline-block;}
+
+  /* ===== metrics (NPV/IRR/要求利回り) ===== */
+  .metrics{display:flex;gap:2.5vw;flex:1;align-items:center;}
+  .metrics .chart{flex:1;}
+  .metrics .explain{flex:1;display:flex;flex-direction:column;gap:1.3vh;}
+  .mcard{background:#fff;border-radius:12px;padding:1.8vh 1.6vw;box-shadow:0 6px 18px rgba(20,40,70,.06);border-left:6px solid var(--ccim);}
+  .mcard .mt{font-size:1.4vw;font-weight:800;color:var(--ccim-d);}
+  .mcard .mt small{font-size:1vw;color:var(--sub);font-weight:600;}
+  .mcard .md{font-size:1.1vw;color:var(--sub);margin-top:.4vh;line-height:1.55;}
+
+  /* ===== capital accumulation / market ===== */
+  .ca{display:flex;gap:2.5vw;flex:1;align-items:stretch;margin-top:1vh;}
+  .ca .panel{flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.8vw;box-shadow:0 8px 22px rgba(20,40,70,.07);display:flex;flex-direction:column;}
+  .ca .panel h4{font-size:1.45vw;color:var(--ccim-d);margin-bottom:.5vh;}
+  .ca .panel .sub{font-size:1vw;color:var(--sub);margin-bottom:1.5vh;}
+  .ca .panel .chart{flex:1;display:flex;align-items:center;justify-content:center;}
+  .grow-note{text-align:center;font-size:1.2vw;margin-top:1vh;}
+  .grow-note b{color:var(--ccim-d);font-size:1.5vw;}
+
+  /* ===== capital accumulation comparison (T-bar) ===== */
+  .cacmp{display:flex;gap:2.6vw;flex:1;align-items:center;}
+  .cacmp .lcol{flex:.92;}
+  .cacmp .pt{display:flex;gap:.9vw;margin-bottom:1.7vh;align-items:flex-start;}
+  .cacmp .pt .n{flex:none;width:2vw;height:2vw;border-radius:50%;background:var(--ccim-l);color:var(--ccim-d);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1vw;}
+  .cacmp .pt .tx{font-size:1.12vw;line-height:1.55;color:var(--ink);}
+  .cacmp .pt .tx b{color:var(--ccim-d);}
+  .tbars{flex:1.05;display:flex;flex-direction:column;gap:1.1vh;justify-content:center;}
+  .tbar-cap{font-size:1vw;color:var(--sub);font-weight:700;text-align:center;}
+  /* vertical T-bar: keys as rows, 所有 / リース as columns */
+  .vtbar{display:grid;grid-template-columns:1.45fr 1fr 1fr;background:#fff;border-radius:16px;overflow:hidden;}
+  .vtbar>div{padding:1.5vh 1.1vw;display:flex;flex-direction:column;justify-content:center;}
+  .vt-hk{justify-content:flex-end;font-size:.92vw;font-weight:800;color:var(--sub);border-right:2px solid var(--line);border-bottom:4px solid #2a3a4d;}
+  .vt-ho{text-align:center;align-items:center;font-weight:800;font-size:1.22vw;color:var(--ink);border-bottom:4px solid #2a3a4d;}
+  .vt-ho small{font-size:.82vw;color:var(--sub);font-weight:600;margin-top:.35vh;}
+  .vt-ho.win{color:var(--pm-d);background:var(--pm-l);border-bottom-color:var(--pm);}
+  .vt-ho .badge{font-size:.74vw;color:#fff;background:var(--pm);padding:.18em .7em;border-radius:999px;margin-top:.5vh;}
+  .vt-k{font-weight:800;font-size:1.12vw;color:var(--ccim-d);border-right:2px solid var(--line);border-top:1px solid var(--line);}
+  .vt-k small{font-size:.84vw;color:var(--sub);font-weight:600;margin-top:.35vh;line-height:1.35;}
+  .vt-v{text-align:center;font-size:1.15vw;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;border-top:1px solid var(--line);}
+  .vt-v.cw{background:rgba(15,138,110,.06);}
+  .vt-fk{font-weight:800;font-size:1.1vw;color:var(--ccim-d);border-right:2px solid var(--line);border-top:3px solid #2a3a4d;}
+  .vt-fk small{font-size:.84vw;color:var(--sub);font-weight:600;margin-top:.35vh;line-height:1.35;}
+  .vt-fv{text-align:center;font-size:1.55vw;font-weight:800;color:var(--ccim-d);font-variant-numeric:tabular-nums;border-top:3px solid #2a3a4d;}
+  .vt-fv.cw{background:var(--pm-l);color:var(--pm-d);}
+  .cacmp-foot{text-align:center;font-size:1.12vw;color:var(--sub);}
+  .cacmp-foot b{color:var(--pm-d);}
+
+  /* ===== design polish ===== */
+  .card,.subj,.mcard,.benefit,.nbox,.ca .panel,table{
+    box-shadow:0 14px 40px -12px rgba(19,45,80,.18),0 2px 8px rgba(19,45,80,.05);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover,.subj:hover,.mcard:hover,.ca .panel:hover{
+    transform:translateY(-4px);
+    box-shadow:0 22px 50px -12px rgba(19,45,80,.26),0 3px 10px rgba(19,45,80,.06);
+  }
+  thead th{background:linear-gradient(135deg,#22303f,#161f2a)!important;}
+  thead th.c-pm{background:linear-gradient(135deg,var(--pm),var(--pm-d))!important;}
+  thead th.c-ccim{background:linear-gradient(135deg,var(--ccim),var(--ccim-d))!important;}
+  .extag{box-shadow:0 2px 8px rgba(19,45,80,.05);}
+
+  /* nav */
+  .nav{position:fixed;bottom:2.5vh;right:3vw;display:flex;align-items:center;gap:14px;z-index:50;}
+  .nav button{width:46px;height:46px;border:none;border-radius:50%;background:#1b2430;color:#fff;font-size:20px;cursor:pointer;opacity:.85;transition:.2s;}
+  .nav button:hover{opacity:1;transform:scale(1.08);}
+  .counter{position:fixed;bottom:3.2vh;left:3vw;font-size:1vw;color:var(--sub);font-weight:700;z-index:50;}
+  .slide:not(.title):not(.summary) .counter-on-dark{display:none;}
+  .progress{position:fixed;top:0;left:0;height:5px;background:var(--amber);z-index:60;transition:width .3s;}
+  .hint{position:fixed;bottom:3.2vh;left:50%;transform:translateX(-50%);font-size:.95vw;color:var(--sub);z-index:50;opacity:.7;}
+
+  /* ===== 印刷／PDF書き出し：全スライドを1枚=1ページで出力 ===== */
+  @media print{
+    /* 16:9 横向き。Chromeの印刷で 用紙向き「横」・余白「なし」を選択 */
+    @page{ size:1280px 720px; margin:0; }
+    html,body{ height:auto; overflow:visible; background:#fff; }
+    body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .deck{ position:static; height:auto; width:auto; }
+    .slide{
+      position:relative; inset:auto;
+      display:flex !important;
+      width:1280px; height:720px;
+      page-break-after:always; break-after:page;
+      page-break-inside:avoid; break-inside:avoid;
+      animation:none; overflow:hidden;
+    }
+    .slide:last-child{ page-break-after:auto; break-after:auto; }
+    /* 操作系UIは印刷しない */
+    .nav,.counter,.hint,.progress{ display:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 タイトル -->
+  <section class="slide title active">
+    <div class="eyebrow" style="color:#bfe0d6;">不動産オーナー様のための資格ガイド</div>
+    <h1>CCIM と CPM®<br>― 何が違い、何ができるのか</h1>
+    <div class="sub">あなたの不動産を「正しく投資する」プロと、<br>「最大限に稼がせる」プロ。世界基準の2つの称号を整理します。</div>
+    <div class="tags">
+      <span class="tag t-pm">CPM® = 運営・経営のプロ</span>
+      <span class="tag t-ccim">CCIM = 投資・取引のプロ</span>
+    </div>
+  </section>
+
+  <!-- 1b CPM 概要 -->
+  <section class="slide">
+    <img src="logo/CPM-2757_0.png" alt="CPM®" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:6px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--pm-d)">CPM® について</div>
+    <h2 style="color:var(--pm-d)">賃貸経営管理の最高峰 ― 不動産経営管理士</h2>
+    <p class="lead" style="max-width:76vw;font-size:1.28vw;">米国シカゴ本部の <b>IREM®（全米不動産管理協会）</b> が認定する <b>Certified Property Manager®</b>。高い倫理観と高度な専門性を持つと認められた個人のみに与えられる、不動産マネジメント資格の世界基準です。</p>
+    <div class="kpi-row" style="margin-top:2vh;">
+      <div class="kpi"><div class="k">54<span style="font-size:.5em">カ国</span></div><div class="kl">資格者が活躍（世界96支部）</div></div>
+      <div class="kpi"><div class="k">約7,800<span style="font-size:.5em">人</span></div><div class="kl">全世界の資格保有者</div></div>
+      <div class="kpi"><div class="k">706<span style="font-size:.5em">人</span></div><div class="kl">日本国内の保有者</div></div>
+      <div class="kpi"><div class="k">1/3<span style="font-size:.5em">以上</span></div><div class="kl">米国の賃貸住宅をCPM®が管理</div></div>
+    </div>
+    <div style="display:flex;gap:1.4vw;margin-top:2vh;flex:1;">
+      <div style="flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.6vw;box-shadow:0 10px 28px -10px rgba(19,45,80,.18);border-top:5px solid var(--pm);">
+        <div style="line-height:0"><svg style="width:2.6vw;height:2.6vw" viewBox="0 0 24 24" fill="none" stroke="var(--pm-d)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div style="font-size:1.3vw;font-weight:800;margin-top:.6vh;color:var(--pm-d)">幅広い専門知識</div>
+        <div style="font-size:1vw;color:var(--sub);margin-top:.6vh;line-height:1.55">倫理・収支分析・資金計画・入居者募集・集客・修繕・スタッフ管理を体系的に習得</div>
+      </div>
+      <div style="flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.6vw;box-shadow:0 10px 28px -10px rgba(19,45,80,.18);border-top:5px solid var(--pm);">
+        <div style="line-height:0"><svg style="width:2.6vw;height:2.6vw" viewBox="0 0 24 24" fill="none" stroke="var(--pm-d)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
+        <div style="font-size:1.3vw;font-weight:800;margin-top:.6vh;color:var(--pm-d)">高い倫理観と信用力</div>
+        <div style="font-size:1vw;color:var(--sub);margin-top:.6vh;line-height:1.55">厳格な倫理基準の維持が認定要件。違反時の審査・罰則制度も完備し、世界的な信頼を獲得</div>
+      </div>
+      <div style="flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.6vw;box-shadow:0 10px 28px -10px rgba(19,45,80,.18);border-top:5px solid var(--pm);">
+        <div style="line-height:0"><svg style="width:2.6vw;height:2.6vw" viewBox="0 0 24 24" fill="none" stroke="var(--pm-d)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
+        <div style="font-size:1.3vw;font-weight:800;margin-top:.6vh;color:var(--pm-d)">世界規模のネットワーク</div>
+        <div style="font-size:1vw;color:var(--sub);margin-top:.6vh;line-height:1.55">収支シミュレーションなどの実務ツールや、世界規模のビジネスネットワークを活用できる</div>
+      </div>
+    </div>
+    <p style="margin-top:1.2vh;font-size:.92vw;color:var(--sub);">出典：IREM JAPAN（irem-japan.org/cpm）｜数値は2024年3月時点</p>
+  </section>
+
+  <!-- 1c CCIM 概要 -->
+  <section class="slide">
+    <img src="logo/CCIM-Pinartwork_solo.png" alt="CCIM" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:8px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--ccim-d)">CCIM について</div>
+    <h2 style="color:var(--ccim-d)">不動産投資分析のプロフェッショナル ― 認定商業投資不動産士</h2>
+    <p class="lead" style="max-width:76vw;font-size:1.28vw;">米国 <b>CCIM Institute（全米認定不動産投資顧問協会）</b> が認定する、不動産投資分析の高度な教育プログラム。多くの実例演習を通じて、<b>筋道立てた正しい投資判断</b>を行う力を習得します。</p>
+    <div class="kpi-row" style="margin-top:2vh;">
+      <div class="kpi" style="background:var(--ccim-l)"><div class="k" style="color:var(--ccim-d)">28<span style="font-size:.5em">カ国</span></div><div class="kl">本部が教育を展開</div></div>
+      <div class="kpi" style="background:var(--ccim-l)"><div class="k" style="color:var(--ccim-d)">約14,000<span style="font-size:.5em">人</span></div><div class="kl">世界で活躍するホルダー</div></div>
+      <div class="kpi" style="background:var(--ccim-l)"><div class="k" style="color:var(--ccim-d)">実践<span style="font-size:.5em">重視</span></div><div class="kl">実例演習が中心のプログラム</div></div>
+    </div>
+    <div style="display:flex;gap:1.4vw;margin-top:2vh;flex:1;">
+      <div style="flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.6vw;box-shadow:0 10px 28px -10px rgba(19,45,80,.18);border-top:5px solid var(--ccim);">
+        <div style="line-height:0"><svg style="width:2.6vw;height:2.6vw" viewBox="0 0 24 24" fill="none" stroke="var(--ccim-d)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+        <div style="font-size:1.3vw;font-weight:800;margin-top:.6vh;color:var(--ccim-d)">高度な投資分析</div>
+        <div style="font-size:1vw;color:var(--sub);margin-top:.6vh;line-height:1.55">お金の流れの分析・市場の分析など、幅広い投資の見極め方を実践的に習得する</div>
+      </div>
+      <div style="flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.6vw;box-shadow:0 10px 28px -10px rgba(19,45,80,.18);border-top:5px solid var(--ccim);">
+        <div style="line-height:0"><svg style="width:2.6vw;height:2.6vw" viewBox="0 0 24 24" fill="none" stroke="var(--ccim-d)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></div>
+        <div style="font-size:1.3vw;font-weight:800;margin-top:.6vh;color:var(--ccim-d)">実例を使った演習</div>
+        <div style="font-size:1vw;color:var(--sub);margin-top:.6vh;line-height:1.55">多くの実例を分析・解決しながら、学んだその日から使える実務力を養う</div>
+      </div>
+      <div style="flex:1;background:#fff;border-radius:14px;padding:2.4vh 1.6vw;box-shadow:0 10px 28px -10px rgba(19,45,80,.18);border-top:5px solid var(--ccim);">
+        <div style="line-height:0"><svg style="width:2.6vw;height:2.6vw" viewBox="0 0 24 24" fill="none" stroke="var(--ccim-d)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div style="font-size:1.3vw;font-weight:800;margin-top:.6vh;color:var(--ccim-d)">適正な投資判断</div>
+        <div style="font-size:1vw;color:var(--sub);margin-top:.6vh;line-height:1.55">米国で権威ある称号。不動産投資の「真のプロ」を目指すための学び</div>
+      </div>
+    </div>
+    <p style="margin-top:1.2vh;font-size:.92vw;color:var(--sub);">出典：CCIM JAPAN（ccim-japan.com/ccim.html）</p>
+  </section>
+
+  <!-- 2 2つの脳 -->
+  <section class="slide">
+    <div class="eyebrow">はじめに</div>
+    <h2>不動産には、2つの「頭脳」が必要です</h2>
+    <div class="accent-bar"></div>
+    <div class="twocol">
+      <div class="card pm">
+        <span class="badge">運営の脳（CPM®）</span>
+        <h3>持っている物件を、<br>いかに稼がせ続けるか</h3>
+        <p class="big">賃料・空室・経費・修繕をうまく調整し、毎年の手取り収入を最大化する力。</p>
+      </div>
+      <div class="card ccim">
+        <span class="badge">投資の脳（CCIM）</span>
+        <h3>買う・売る・投資判断を、<br>いかに正しく行うか</h3>
+        <p class="big">市場と数字を読み、「いくらで買うべきか」「今売るべきか」「儲かるか」を分析する力。</p>
+      </div>
+    </div>
+    <p style="margin-top:2vh;color:var(--sub);font-size:1.2vw;">この2つを担うのが、それぞれ <b style="color:var(--pm-d)">CPM®</b> と <b style="color:var(--ccim-d)">CCIM</b> です。</p>
+  </section>
+
+  <!-- 3 管理の3階層ピラミッド -->
+  <section class="slide">
+    <div class="eyebrow">まず整理：管理には「3つの段階」がある</div>
+    <h2>普通の管理会社 ／ 運営の管理 ／ 資産の管理 の違い</h2>
+    <div class="pyramid">
+      <div class="tier t3">
+        <div class="t-name">資産の管理（AM）</div>
+        <div class="t-sub">オーナー様の「資産・お金」の立場で判断 ― 買う・売る・資金の調達まで</div>
+      </div>
+      <div class="tier t2">
+        <div class="t-name">運営の管理（PM）</div>
+        <div class="t-sub">物件の「もうけ」を最大化 ― 賃料の決め方・入居者募集・経費の見直し</div>
+      </div>
+      <div class="tier t1">
+        <div class="t-name">普通の管理会社（建物の管理）</div>
+        <div class="t-sub">建物の「日常」を担当 ― 清掃・設備・入居者対応・退去後の修繕</div>
+      </div>
+      <div class="pyr-note"><span>↑ 上にいくほど「オーナー様のお金」に踏み込む</span><span>↓ 下は「建物を滞りなく回す」</span></div>
+    </div>
+  </section>
+
+  <!-- 4 3階層 比較表 -->
+  <section class="slide">
+    <div class="eyebrow">3つの段階を、視点で比べる</div>
+    <h2>誰の・何を・どう見ているか</h2>
+    <table>
+      <thead>
+        <tr><th></th><th>普通の管理会社（建物の管理）</th><th class="c-pm">運営の管理（PM）</th><th class="c-ccim">資産の管理（AM）</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>見ているもの</th><td>建物・設備・入居者</td><td class="pm-cell">物件のもうけ（家賃−経費）</td><td class="ccim-cell">オーナー様の資産・投資</td></tr>
+        <tr><th>主な仕事</th><td>清掃・点検・修繕・対応</td><td class="pm-cell">賃料設定・入居者募集・経費削減・予算</td><td class="ccim-cell">買う/売るの判断・資金の調達・売り抜け方</td></tr>
+        <tr><th>成果の見方</th><td>入居状況・クレーム件数</td><td class="pm-cell">入居率・もうけ・家賃の回収率</td><td class="ccim-cell">利回り・トータルの収益率・資産価値</td></tr>
+        <tr><th>時間軸</th><td>今日・今月</td><td class="pm-cell">今年〜数年</td><td class="ccim-cell">買ってから売るまでの全期間</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:2vh;font-size:1.2vw;color:var(--sub);">資格でいうと → <b style="color:var(--pm-d)">CPM®</b> は 運営〜資産の管理の実務を、<b style="color:var(--ccim-d)">CCIM</b> は投資・取引の分析をカバーします。</p>
+  </section>
+
+  <!-- 5 CPMとは -->
+  <section class="slide">
+    <img src="logo/CPM-2757_0.png" alt="CPM®" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:6px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow">CPM® とは</div>
+    <h2 style="color:var(--pm-d);margin-bottom:.2em">Certified Property Manager®<br><span style="font-size:1.4vw;color:var(--ink)">認定不動産経営管理士（IREM｜全米不動産管理協会）</span></h2>
+    <p class="lead" style="max-width:70vw;font-size:1.3vw;margin-top:.6vh;">物件を「経営」して価値を生み出す<b>運営のプロフェッショナル</b>の世界基準。収益・予算・人・建物を動かし、オーナー様のリターンを最大化します。</p>
+    <div class="subjects">
+      <div class="subj" style="border-left-color:var(--amber)"><div class="code" style="color:var(--amber)">ETH800</div><div class="nm">不動産管理士のための倫理</div><div class="ds">全CPM®教育の根幹・土台。倫理を軸にしたビジネスが成功を導く</div></div>
+      <div class="subj"><div class="code">HRS402</div><div class="nm">勝ち残る管理チームの指揮</div><div class="ds">優秀な人材の採用・教育・保持と、変化をリードするリーダーシップ</div></div>
+      <div class="subj"><div class="code">FIN402</div><div class="nm">予算とキャッシュフロー報告</div><div class="ds">CF分析・融資の分析と計算・物件価値の求め方・単年度投資指標</div></div>
+      <div class="subj"><div class="code">ASM603</div><div class="nm">投資用不動産の融資とローン分析</div><div class="ds">FIN402を基に深化。損益分岐点・資本化率（還元率）の計算手法</div></div>
+      <div class="subj"><div class="code">MNT402</div><div class="nm">メンテナンス管理と物件リスク</div><div class="ds">費用効率の高い保守計画とリスク管理。賠償責任や大規模修理を回避</div></div>
+      <div class="subj"><div class="code">ASM604</div><div class="nm">投資用不動産の成果と評価</div><div class="ds">貨幣の時間的価値を考慮した複数年度評価。IRR・NPVを使いこなす</div></div>
+      <div class="subj"><div class="code">MKL410</div><div class="nm">マーケティングとリーシング戦略</div><div class="ds">市場分析・家賃設定の手法・リーシング戦略・入居者保持で稼働を最大化</div></div>
+      <div class="subj"><div class="code">ASM605</div><div class="nm">投資用不動産の資産分析</div><div class="ds">オーナー様への改善提案と最適プラン選定。スプレッドシート分析を習得</div></div>
+    </div>
+  </section>
+
+  <!-- 6b CPM キャッシュフローツリー -->
+  <section class="slide">
+    <img src="logo/CPM-2757_0.png" alt="CPM®" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:6px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--pm-d)">CPM® の仕事 ①｜キャッシュフローツリー</div>
+    <h2>家賃が「手取り」になるまでの流れ</h2>
+    <span class="extag">共通事例物件：取得価格 <b>5億円（=500,000千円）</b>／自己資金 <b>1.5億円（=150,000千円）</b>・借入 3.5億円 ｜ <b>下表は千円・年額</b></span>
+    <div class="cft">
+      <div class="cft-tree">
+        <div class="cfr inc"><span class="lbl">潜在総収入（GPI｜満室想定の家賃）</span><span class="val">50,000</span></div>
+        <div class="cfr ded indent"><span class="lbl">− 空室・貸倒損失（5%）</span><span class="val">−2,500</span></div>
+        <div class="cfr inc indent"><span class="lbl">＋ その他収入（駐車場など）</span><span class="val">+500</span></div>
+        <div class="cfr sub"><span class="lbl">＝ 実効総収入（EGI）</span><span class="val">48,000</span></div>
+        <div class="cfr ded indent"><span class="lbl">− 運営費（管理・修繕・税公課）</span><span class="val">−18,000</span></div>
+        <div class="cfr sub"><span class="lbl">＝ 純営業収益（NOI）</span><span class="val">30,000</span></div>
+        <div class="cfr ded indent"><span class="lbl">− 年間負債支払（元利返済 ADS）</span><span class="val">−21,000</span></div>
+        <div class="cfr sub"><span class="lbl">＝ 税引前CF（BTCF）<small style="font-weight:600;font-size:.75em;opacity:.85">← CPM®はここまで</small></span><span class="val">9,000</span></div>
+        <div class="cfr ded indent"><span class="lbl">− 所得税</span><span class="val">−750</span></div>
+        <div class="cfr sub" style="background:linear-gradient(135deg,var(--ccim),var(--ccim-d));box-shadow:0 6px 16px rgba(31,95,168,.3)"><span class="lbl">＝ 税引後CF（ATCF）<small style="font-weight:600;font-size:.75em;opacity:.9">← CCIMはここまで見る</small></span><span class="val">8,250</span></div>
+      </div>
+      <div class="cft-note">
+        <div class="nbox">
+          <h4>運営は BTCF、投資判断は ATCF</h4>
+          <p><b style="color:var(--pm-d)">CPM®</b>は家賃・空室・運営費・返済を管理して <b>NOI〜BTCF（税引前手取り）</b>を最大化。<br><b style="color:var(--ccim-d)">CCIM</b>はさらに税金まで引いた <b>ATCF（税引後手取り）</b>で、投資として儲かるかを判断します。</p>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><div class="k">6.0%</div><div class="kl">表面利回り（NOI÷価格）</div></div>
+          <div class="kpi"><div class="k">1.43</div><div class="kl">返済余裕（DSCR）</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6L CPM 財務レバレッジ -->
+  <section class="slide">
+    <img src="logo/CPM-2757_0.png" alt="CPM®" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:6px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--pm-d)">CPM® の仕事 ②｜財務レバレッジ（てこの原理）</div>
+    <h2>借入を「てこ」にして、自己資金の利回りを引き上げる</h2>
+    <span class="extag">共通事例物件：取得価格 <b>5億円</b>／自己資金 <b>1.5億円</b>・借入 <b>3.5億円</b> ｜ レバレッジ＝他人資本（借入）の活用</span>
+    <div class="ca" style="margin-top:1.4vh;">
+      <!-- 左：規模のてこ -->
+      <div class="panel" style="border-top:8px solid var(--pm);border-radius:18px;">
+        <h4 style="color:var(--pm-d)">少ない自己資金で、大きな資産を動かす</h4>
+        <div class="sub">自己資金1.5億円に借入3.5億円を加え、5億円の物件を取得</div>
+        <div class="chart" style="flex-direction:column;justify-content:center;gap:2vh;">
+          <div style="width:100%;">
+            <div style="font-size:1vw;color:var(--sub);font-weight:700;margin-bottom:.5vh;">自己資金だけで買う</div>
+            <div style="display:flex;height:3.4vh;border-radius:8px;overflow:hidden;box-shadow:0 3px 10px rgba(20,40,70,.08);">
+              <div style="width:30%;background:var(--pm);"></div>
+              <div style="width:70%;background:#eef1f5;"></div>
+            </div>
+            <div style="font-size:.95vw;color:var(--sub);margin-top:.5vh;">1.5億円ぶんの規模しか持てない</div>
+          </div>
+          <div style="width:100%;">
+            <div style="font-size:1vw;color:var(--pm-d);font-weight:800;margin-bottom:.5vh;">借入を活用する（レバレッジ）</div>
+            <div style="display:flex;height:3.4vh;border-radius:8px;overflow:hidden;box-shadow:0 3px 10px rgba(20,40,70,.08);">
+              <div style="width:30%;background:var(--pm);"></div>
+              <div style="width:70%;background:var(--amber);"></div>
+            </div>
+            <div style="font-size:.95vw;color:var(--sub);margin-top:.5vh;"><b style="color:var(--pm-d)">5億円</b>の規模（約3.3倍）― 自己資金は同じ</div>
+          </div>
+        </div>
+        <div class="legend" style="margin-top:.6vh"><span><i style="background:var(--pm)"></i>自己資金 1.5億</span><span><i style="background:var(--amber)"></i>借入 3.5億</span></div>
+      </div>
+      <!-- 右：正負のルール -->
+      <div class="panel" style="border-top:8px solid var(--ccim);border-radius:18px;">
+        <h4 style="color:var(--ccim-d)">レバレッジの「正・負」を決めるルール</h4>
+        <div class="sub">物件の利回り（FCR）と 借入コスト（ローン定数）の大小で決まる</div>
+        <table style="margin-top:1.2vh;font-size:1.02vw;box-shadow:none;">
+          <thead><tr><th>タイプ</th><th>FCR vs ローン定数</th><th>自己資金利回り</th></tr></thead>
+          <tbody>
+            <tr><th style="color:var(--pm-d)">正</th><td>6% ＞ 5%</td><td class="pm-cell"><b>↑ 高くなる（8%）</b></td></tr>
+            <tr><th style="color:var(--sub)">中立</th><td>6% ＝ 6%</td><td>→ 変わらない（6%）</td></tr>
+            <tr><th style="color:#b03b3b">負</th><td>6% ＜ 7%</td><td style="color:#b03b3b"><b>↓ 下がる（4%）</b></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:1.02vw;color:var(--sub);margin-top:1.3vh;line-height:1.6;">物件が生む利回りが借入コストを<b style="color:var(--pm-d)">上回れば、借りるほど自己資金の利回りは上がる</b>。逆に下回ると損失も拡大する「もろ刃の剣」です。</p>
+      </div>
+    </div>
+    <p style="margin-top:1vh;font-size:1.12vw;color:var(--sub);text-align:center;">本事例は FCR 6.0%・ローン定数 6.0% で<b>ほぼ均衡</b>。それでも<b style="color:var(--pm-d)">元金返済</b>と<b style="color:var(--pm-d)">値上がり益</b>が自己資金に集中するため、<b style="color:var(--ccim-d)">10年のIRRは9.0%</b>まで高まります（次ページ）。</p>
+  </section>
+
+  <!-- 6c CPM 10年投資キャッシュフロー -->
+  <section class="slide" style="padding:4.5vh 4vw 3.5vh">
+    <img src="logo/CPM-2757_0.png" alt="CPM®" style="position:absolute;top:3vh;right:6vw;height:5vh;width:auto;border-radius:6px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--pm-d);margin-bottom:.5vh;font-size:.92vw">CPM® の仕事 ③｜10年間のキャッシュフロー（投資の全体像）</div>
+    <h2 style="margin-bottom:.25em;font-size:2.2vw">0年目に投じ、毎年回収し、最後に売る</h2>
+    <span class="extag" style="margin-bottom:.6vh">自己資本 <b>−150,000（=1.5億円）</b>（0年目）→ 毎年のBTCF → 10年目に <b>BTCF＋売却手取り</b>（単位：千円）</span>
+    <div class="chart" style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;">
+      <svg viewBox="0 0 940 420" width="100%" style="background:#fff;border-radius:14px;box-shadow:0 8px 22px rgba(20,40,70,.07);max-height:62vh">
+        <!-- gridlines -->
+        <g stroke="#e6eaef" stroke-width="1">
+          <line x1="100" y1="48" x2="900" y2="48"/><line x1="100" y1="87" x2="900" y2="87"/>
+          <line x1="100" y1="166" x2="900" y2="166"/><line x1="100" y1="362" x2="900" y2="362"/>
+        </g>
+        <!-- zero line -->
+        <line x1="100" y1="244" x2="900" y2="244" stroke="#1b2430" stroke-width="2"/>
+        <g fill="#9aa3b0" font-size="13" text-anchor="end">
+          <text x="86" y="248">0</text><text x="86" y="170">100,000</text><text x="86" y="91">200,000</text>
+          <text x="86" y="52">250,000</text><text x="86" y="366">−150,000</text>
+        </g>
+        <!-- year0 negative (equity) -->
+        <rect x="96" y="244" width="34" height="118" rx="3" fill="#b03b3b"/>
+        <text x="113" y="380" fill="#b03b3b" font-size="13" font-weight="800" text-anchor="middle">−150,000</text>
+        <!-- years 1-9 BTCF (amber) -->
+        <rect x="164" y="237" width="42" height="7" fill="#e0962a"/>
+        <rect x="239" y="237" width="42" height="8" fill="#e0962a"/>
+        <rect x="314" y="236" width="42" height="8" fill="#e0962a"/>
+        <rect x="389" y="236" width="42" height="8" fill="#e0962a"/>
+        <rect x="464" y="235" width="42" height="9" fill="#e0962a"/>
+        <rect x="539" y="235" width="42" height="9" fill="#e0962a"/>
+        <rect x="614" y="234" width="42" height="10" fill="#e0962a"/>
+        <rect x="689" y="234" width="42" height="11" fill="#e0962a"/>
+        <rect x="764" y="233" width="42" height="11" fill="#e0962a"/>
+        <text x="485" y="225" fill="#b8741a" font-size="13" font-weight="700" text-anchor="middle">毎年のBTCF（約9,000〜14,000）</text>
+        <!-- year10 stacked: sale(green)+cf(amber) -->
+        <rect x="839" y="57" width="42" height="187" rx="3" fill="#0f8a6e"/>
+        <rect x="839" y="45" width="42" height="12" rx="3" fill="#e0962a"/>
+        <text x="860" y="36" fill="#0a5f4c" font-size="15" font-weight="800" text-anchor="middle">253,024</text>
+        <!-- x labels -->
+        <g fill="#5a6573" font-size="13" text-anchor="middle">
+          <text x="113" y="405">0年</text><text x="185" y="405">1</text><text x="260" y="405">2</text><text x="335" y="405">3</text>
+          <text x="410" y="405">4</text><text x="485" y="405">5</text><text x="560" y="405">6</text><text x="635" y="405">7</text>
+          <text x="710" y="405">8</text><text x="785" y="405">9</text><text x="860" y="405">10年</text>
+        </g>
+      </svg>
+      <div class="legend" style="margin-top:.5vh">
+        <span><i style="background:#b03b3b"></i>0年目：自己資本の投下</span>
+        <span><i style="background:#e0962a"></i>毎年のBTCF（運営の手取り）</span>
+        <span><i style="background:#0f8a6e"></i>10年目：売却手取り（238,269）</span>
+      </div>
+    </div>
+    <div class="kpi-row" style="margin-top:.6vh">
+      <div class="kpi" style="padding:1vh 1vw"><div class="k">8.0%</div><div class="kl">オーナー様の目標利回り</div></div>
+      <div class="kpi" style="padding:1vh 1vw"><div class="k">6.0%</div><div class="kl">FCR</div></div>
+      <div class="kpi" style="padding:1vh 1vw;background:var(--ccim-l)"><div class="k" style="color:var(--ccim-d)">9.0%</div><div class="kl">IRR</div></div>
+      <div class="kpi" style="padding:1vh 1vw"><div class="k">+210,224</div><div class="kl">累積CF（千円）</div></div>
+    </div>
+  </section>
+
+  <!-- 8x CPM 締めメッセージ -->
+  <section class="slide summary" style="background:linear-gradient(135deg,#0a5f4c,#0f8a6e 130%);text-align:center;align-items:center;">
+    <div class="eyebrow" style="color:#bfe0d6;">CPM® が生み出す価値</div>
+    <h1 style="font-size:3.6vw;line-height:1.45;">CPM®は、オーナー様の<br><span style="color:#ffe3b0;">物件価値を最大化</span>します。</h1>
+    <div class="accent-bar" style="margin:3vh auto 0;"></div>
+  </section>
+
+  <!-- 7 CCIMとは -->
+  <section class="slide">
+    <img src="logo/CCIM-Pinartwork_solo.png" alt="CCIM" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:8px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow">CCIM とは</div>
+    <h2 style="color:var(--ccim-d)">Certified Commercial Investment Member<br><span style="font-size:1.5vw;color:var(--ink)">認定事業用投資不動産メンバー（CCIM協会）</span></h2>
+    <div class="accent-bar" style="background:var(--ccim)"></div>
+    <p class="lead" style="max-width:62vw;">物件を「投資対象」として分析し、売買・投資判断を導く、<b>投資・取引のプロフェッショナル</b>。<br>「いくらで買い、いつ売れば儲かるか」を数字で証明します。</p>
+    <div class="subjects">
+      <div class="subj b"><div class="code">① CI 102</div><div class="nm">市場分析</div><div class="ds">市場調査・市場力学・経済基盤分析</div></div>
+      <div class="subj b"><div class="code">② CI 103</div><div class="nm">ユーザー決定分析</div><div class="ds">スペース取得プロセス・リース比較・リースvs所有・借家権の評価とリース出口</div></div>
+      <div class="subj b"><div class="code">③ CI 104</div><div class="nm">投資分析</div><div class="ds">投資ライフサイクル・割引率・財務レバレッジとリスク・所得税の影響・保有/売却（出口）判断</div></div>
+      <div class="subj b"><div class="code">④ CI 101</div><div class="nm">財務分析</div><div class="ds">貨幣の時間的価値・キャッシュフロー・IRR/NPV・DSCR・資本蓄積</div></div>
+    </div>
+    <p style="margin-top:1.4vh;font-size:1.1vw;color:var(--sub)">＋ CCR（概念復習）を経て総合試験に合格すると CCIM 称号を取得。</p>
+  </section>
+
+  <!-- 8d CCIM 市場調査 -->
+  <section class="slide">
+    <img src="logo/CCIM-Pinartwork_solo.png" alt="CCIM" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:8px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--ccim-d)">CCIM の仕事 ①｜市場調査（CI102）</div>
+    <h2>市場を分析して「買い時・売り時」を読む</h2>
+    <div class="ca">
+      <div class="panel">
+        <h4>吸収分析（Absorption）</h4>
+        <div class="sub">市場が新規供給をどれだけ消化するか。吸収が供給を上回ると空室が減る</div>
+        <div class="chart">
+          <svg viewBox="0 0 420 300" width="100%">
+            <g stroke="#e6eaef" stroke-width="1"><line x1="40" y1="250" x2="405" y2="250"/></g>
+            <!-- 供給 (orange) -->
+            <rect x="63"  y="180" width="28" height="70"  fill="#e0962a"/>
+            <rect x="148" y="182" width="28" height="68"  fill="#e0962a"/>
+            <rect x="233" y="188" width="28" height="62"  fill="#e0962a"/>
+            <rect x="318" y="192" width="28" height="58"  fill="#e0962a"/>
+            <!-- 吸収 (blue) -->
+            <rect x="93"  y="200" width="28" height="50"  fill="#1f5fa8"/>
+            <rect x="178" y="170" width="28" height="80"  fill="#1f5fa8"/>
+            <rect x="263" y="142" width="28" height="108" fill="#1f5fa8"/>
+            <rect x="348" y="118" width="28" height="132" fill="#1f5fa8"/>
+            <g fill="#9aa3b0" font-size="12" text-anchor="middle">
+              <text x="92" y="270">1年</text><text x="177" y="270">2年</text><text x="262" y="270">3年</text><text x="347" y="270">4年</text>
+            </g>
+          </svg>
+        </div>
+        <div class="legend" style="margin-top:.4vh"><span><i style="background:#e0962a"></i>新規供給</span><span><i style="background:#1f5fa8"></i>純吸収</span></div>
+        <div class="grow-note" style="font-size:1.02vw;margin-top:.6vh">吸収 ＞ 供給 → 空室減 → <b style="font-size:1.18vw">賃料・価格の上昇</b></div>
+      </div>
+      <div class="panel">
+        <h4>シフトシェア分析（Shift-Share）</h4>
+        <div class="sub">地域の雇用成長を3要素に分解。EBAでは分からない「全国の同業種に対する競争力」を測る</div>
+        <div class="chart">
+          <svg viewBox="0 0 420 300" width="100%">
+            <g fill="#5a6573" font-size="12" text-anchor="end" font-weight="700">
+              <text x="132" y="63">全国成長 NG</text><text x="132" y="109">産業構成 IM</text>
+              <text x="132" y="155">地域シフト RS</text><text x="132" y="216">実際の成長 AG</text>
+            </g>
+            <rect x="140" y="46"  width="104" height="26" rx="3" fill="#aab3bf"/>
+            <rect x="140" y="92"  width="62"  height="26" rx="3" fill="#e0962a"/>
+            <rect x="140" y="138" width="94"  height="26" rx="3" fill="#1f5fa8"/>
+            <line x1="40" y1="182" x2="405" y2="182" stroke="#d6dbe2" stroke-width="1.5"/>
+            <rect x="140" y="194" width="260" height="30" rx="3" fill="#143f70"/>
+            <g font-size="12.5" font-weight="800" text-anchor="start">
+              <text x="252" y="63" fill="#5a6573">+200</text>
+              <text x="210" y="109" fill="#b8741a">+120</text>
+              <text x="242" y="155" fill="#143f70">+180</text>
+              <text x="392" y="214" fill="#ffffff" text-anchor="end">＝ +500人</text>
+            </g>
+          </svg>
+        </div>
+        <div class="grow-note" style="font-size:1.02vw;margin-top:.6vh">AG ＝ NG ＋ IM ＋ RS。全国・産業構成を超える <b style="font-size:1.18vw">地域シフト＝エリア固有の競争力</b></div>
+      </div>
+    </div>
+    <p style="margin-top:1vh;font-size:1.12vw;color:var(--sub);text-align:center;"><b style="color:var(--ccim-d)">経済基盤分析</b>（移出産業・立地係数）で需要の源泉を特定し、<b>物件タイプ別</b>（オフィス／居住／工業／小売）に市場を評価します。</p>
+  </section>
+
+  <!-- 8c CCIM 資本蓄積で所有vsリース -->
+  <section class="slide">
+    <img src="logo/CCIM-Pinartwork_solo.png" alt="CCIM" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:8px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--ccim-d)">CCIM の仕事 ②｜資本蓄積で「買う」か「借りる」か（CI103）</div>
+    <h2>所有 vs リースを資本蓄積で比較する</h2>
+    <span class="extag">資本蓄積（Capital Accumulation）の手順 ― <b>IRRの欠点を補い、正のCFを再投資して比較</b>（例：単位 千円）</span>
+    <div class="cacmp">
+      <div class="lcol">
+        <div class="pt"><div class="n">1</div><div class="tx">各案の正のキャッシュフローを、<b>同じ期間・同じ再投資率</b>で将来価値（FV）まで積み上げる。</div></div>
+        <div class="pt"><div class="n">2</div><div class="tx"><b>買う（所有）</b>＝頭金を投じ、返済・税メリット・売却益で資本をつくる。<br><b>借りる（リース）</b>＝賃料を払い、浮いた自己資金を別運用する。</div></div>
+        <div class="pt"><div class="n">3</div><div class="tx">最後に<b>手元に残る資本（FV＝資本蓄積）が大きい方</b>を選ぶ。感覚でなく数字で決められる。</div></div>
+      </div>
+      <div class="tbars">
+        <div class="tbar-cap">5つの財務キー　[ N ]　[ I/YR ]　[ PV ]　[ PMT ]　[ FV ]　で所有とリースを比較</div>
+        <div class="vtbar">
+          <div class="vt-hk">財務キー</div>
+          <div class="vt-ho win">所有（買う）<small>頭金を投下</small><span class="badge">◀ 有利</span></div>
+          <div class="vt-ho">リース（借りる）<small>浮いた資金を運用</small></div>
+
+          <div class="vt-k">N<small>期間（年）</small></div><div class="vt-v cw">10</div><div class="vt-v">10</div>
+          <div class="vt-k">I/YR<small>金利（再投資率）</small></div><div class="vt-v cw">6%</div><div class="vt-v">6%</div>
+          <div class="vt-k">PV<small>現在価値（初期投資）</small></div><div class="vt-v cw">−30,000</div><div class="vt-v">0</div>
+          <div class="vt-k">PMT<small>定期的支払い（年間CF）</small></div><div class="vt-v cw">−2,000</div><div class="vt-v">−3,600</div>
+
+          <div class="vt-fk">FV<small>将来価値＝資本蓄積</small></div><div class="vt-fv cw">92,000</div><div class="vt-fv">78,000</div>
+        </div>
+        <div class="cacmp-foot">所有は10年で約 <b>+14,000千円</b> 多く資本が残る → この条件では「<b>買う</b>」が有利</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8b CCIM 投資判定 NPV/IRR/要求利回り -->
+  <section class="slide">
+    <img src="logo/CCIM-Pinartwork_solo.png" alt="CCIM" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:8px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--ccim-d)">CCIM の仕事 ③｜投資の「ものさし」</div>
+    <h2>NPV と IRR で「買っていいか」を判定</h2>
+    <span class="extag">事例物件を <b>税引後（ATCF）</b> で評価し、<b>IRR を「要求利回り」と比べる</b>（CI101・CI104 / ASM604 ｜ 金額の単位：千円）</span>
+    <div class="metrics">
+      <div class="chart">
+        <svg viewBox="0 0 460 370" width="100%" style="background:#fff;border-radius:16px">
+          <g stroke="#eef1f5" stroke-width="1">
+            <line x1="70" y1="300" x2="430" y2="300"/><line x1="70" y1="240" x2="430" y2="240"/>
+            <line x1="70" y1="180" x2="430" y2="180"/><line x1="70" y1="120" x2="430" y2="120"/><line x1="70" y1="60" x2="430" y2="60"/>
+          </g>
+          <g fill="#9aa3b0" font-size="12" text-anchor="end">
+            <text x="62" y="304">0%</text><text x="62" y="244">3%</text><text x="62" y="184">6%</text><text x="62" y="124">9%</text><text x="62" y="64">12%</text>
+          </g>
+          <!-- 要求利回り 8% bar (gray) -->
+          <rect x="120" y="140" width="92" height="160" rx="7" fill="#aab3bf"/>
+          <text x="166" y="128" fill="#5a6573" font-size="22" font-weight="800" text-anchor="middle">8.0%</text>
+          <text x="166" y="324" fill="#5a6573" font-size="13.5" text-anchor="middle">要求利回り</text>
+          <text x="166" y="342" fill="#9aa3b0" font-size="11.5" text-anchor="middle">（最低ライン）</text>
+          <!-- IRR 9% bar (blue) -->
+          <rect x="280" y="120" width="92" height="180" rx="7" fill="#1f5fa8"/>
+          <text x="326" y="108" fill="#143f70" font-size="22" font-weight="800" text-anchor="middle">9.0%</text>
+          <text x="326" y="324" fill="#143f70" font-size="13.5" font-weight="700" text-anchor="middle">この物件のIRR</text>
+          <!-- pass stamp -->
+          <text x="326" y="160" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">✓ 上回る</text>
+        </svg>
+      </div>
+      <div class="explain">
+        <div class="mcard"><div class="mt">① NPV ＝ +12,090千円 <small>正味現在価値（約1,200万円）</small></div><div class="md">将来の税引後CFを「今の価値」に割り引いて合計。<b>プラスなら投資する価値あり</b>。</div></div>
+        <div class="mcard"><div class="mt">② IRR ＝ 9.0% <small>内部収益率</small></div><div class="md">この投資が生む年平均の利回り（税引後）。投資の「実力値」です。</div></div>
+        <div class="mcard"><div class="mt">③ 要求利回り 8.0% と比較 <small>判定</small></div><div class="md">IRRが要求利回りを<b>上回れば「買い」</b>。下回るなら「<b>いくらまで値下げ交渉すれば合うか</b>」を逆算（カウンターオファー）。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8b2 CCIM IRRの弱点とMIRR -->
+  <section class="slide">
+    <img src="logo/CCIM-Pinartwork_solo.png" alt="CCIM" style="position:absolute;top:4vh;right:6vw;height:5.4vh;width:auto;border-radius:8px;box-shadow:0 6px 18px rgba(20,40,70,.2);z-index:3">
+    <div class="eyebrow" style="color:var(--ccim-d)">CCIM の仕事 ③｜利回りを「現実の数字」で見る</div>
+    <h2>利回りは “実際に手元に残る数字” で見極めます</h2>
+    <span class="extag">よく使われる利回り（IRR）は<b>実際より高く見えがち</b>。CCIMは<b>現実に近い利回り（MIRR）</b>で見直して、ご判断します。</span>
+    <div class="metrics">
+      <div class="chart">
+        <svg viewBox="0 0 460 370" width="100%" style="background:#fff;border-radius:16px">
+          <g stroke="#eef1f5" stroke-width="1">
+            <line x1="70" y1="300" x2="430" y2="300"/><line x1="70" y1="240" x2="430" y2="240"/>
+            <line x1="70" y1="180" x2="430" y2="180"/><line x1="70" y1="120" x2="430" y2="120"/><line x1="70" y1="60" x2="430" y2="60"/>
+          </g>
+          <g fill="#9aa3b0" font-size="12" text-anchor="end">
+            <text x="62" y="304">0%</text><text x="62" y="244">3%</text><text x="62" y="184">6%</text><text x="62" y="124">9%</text><text x="62" y="64">12%</text>
+          </g>
+          <!-- IRR 11.6% bar (blue, overstated) -->
+          <rect x="120" y="68" width="92" height="232" rx="7" fill="#1f5fa8"/>
+          <text x="166" y="56" fill="#143f70" font-size="22" font-weight="800" text-anchor="middle">11.6%</text>
+          <text x="166" y="324" fill="#143f70" font-size="13.5" font-weight="700" text-anchor="middle">よくある利回り（IRR）</text>
+          <text x="166" y="342" fill="#9aa3b0" font-size="11.5" text-anchor="middle">実際より高く見えやすい</text>
+          <!-- MIRR 9.6% bar (green, realistic) -->
+          <rect x="280" y="108" width="92" height="192" rx="7" fill="#0f8a6e"/>
+          <text x="326" y="96" fill="#0a5f4c" font-size="22" font-weight="800" text-anchor="middle">9.6%</text>
+          <text x="326" y="324" fill="#0a5f4c" font-size="13.5" font-weight="700" text-anchor="middle">現実的な利回り（MIRR）</text>
+          <text x="326" y="342" fill="#9aa3b0" font-size="11.5" text-anchor="middle">実際に手元に残る利回り</text>
+          <!-- overstatement note -->
+          <text x="430" y="40" fill="#c0392b" font-size="13" font-weight="800" text-anchor="end">実際より約2%高く見える ▼</text>
+        </svg>
+      </div>
+      <div class="explain">
+        <div class="mcard"><div class="mt">① なぜ高く見えるの？</div><div class="md">よくある利回り（IRR）は「途中で入る家賃なども、<b>ずっと同じ高い利回りで運用できる</b>」前提で計算します。現実はそこまで上手くいかないため、<b>実際より良く見えがち</b>です。</div></div>
+        <div class="mcard"><div class="mt">② 現実に近い数字で計算し直す</div><div class="md">受け取ったお金を<b>無理のない利回り</b>で運用する前提に直して計算（MIRR）。<b>本当に手元に残る利回り</b>に近づきます。</div></div>
+        <div class="mcard"><div class="mt">③ 結論が逆転することも</div><div class="md">パッと見の利回りはA物件が上でも、<b>実際に残るお金で比べるとB物件が得</b>、という逆転もあります。CCIMは<b>現実の数字で比べ、後悔のないご判断</b>をお手伝いします。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8y CCIM 締めメッセージ -->
+  <section class="slide summary" style="background:linear-gradient(135deg,#143f70,#1f5fa8 130%);text-align:center;align-items:center;">
+    <div class="eyebrow" style="color:#bcd4f0;">CCIM が生み出す価値</div>
+    <h1 style="font-size:3.6vw;line-height:1.45;">CCIMは、オーナー様の<br><span style="color:#ffe3b0;">資産価値を最大化</span>します。</h1>
+    <div class="accent-bar" style="margin:3vh auto 0;"></div>
+  </section>
+
+  <!-- 9 CPM vs CCIM 一枚比較 -->
+  <section class="slide">
+    <div class="eyebrow">結論：CPM® と CCIM の違い（一枚で）</div>
+    <h2>運営のプロ ｜ 投資のプロ</h2>
+    <table>
+      <thead>
+        <tr><th></th><th class="c-pm">CPM®（IREM）</th><th class="c-ccim">CCIM（CCIM協会）</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>役割</th><td class="pm-cell">物件を経営して稼がせる</td><td class="ccim-cell">投資・売買を分析して判断する</td></tr>
+        <tr><th>得意分野</th><td class="pm-cell">運営・予算・入居者募集・修繕・人</td><td class="ccim-cell">お金・市場・投資の分析</td></tr>
+        <tr><th>主な場面</th><td class="pm-cell">保有中の日々〜数年の運営</td><td class="ccim-cell">取得時・売却時の意思決定</td></tr>
+        <tr><th>キーワード</th><td class="pm-cell">もうけ・入居率・手取り収入</td><td class="ccim-cell">総合利回り・今の価値の利益・市場の波</td></tr>
+        <tr><th>オーナー様への価値</th><td class="pm-cell">資産価値を「守り・高める」</td><td class="ccim-cell">資産を「正しく増やす・売り抜け方をつくる」</td></tr>
+      </tbody>
+    </table>
+    <div style="display:flex;gap:2vw;margin-top:2.4vh;">
+      <div style="flex:1;background:linear-gradient(135deg,var(--pm),var(--pm-d));color:#fff;border-radius:16px;padding:2.6vh 2vw;display:flex;align-items:center;gap:1.2vw;box-shadow:0 12px 30px rgba(15,138,110,.28);">
+        <svg style="width:3vw;height:3vw;flex:none" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+        <div>
+          <div style="font-size:1.1vw;font-weight:800;opacity:.85;letter-spacing:.08em;">CPM®</div>
+          <div style="font-size:2.1vw;font-weight:800;">物件価値の最大化</div>
+        </div>
+      </div>
+      <div style="flex:1;background:linear-gradient(135deg,var(--ccim),var(--ccim-d));color:#fff;border-radius:16px;padding:2.6vh 2vw;display:flex;align-items:center;gap:1.2vw;box-shadow:0 12px 30px rgba(31,95,168,.28);">
+        <svg style="width:3vw;height:3vw;flex:none" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <div>
+          <div style="font-size:1.1vw;font-weight:800;opacity:.85;letter-spacing:.08em;">CCIM</div>
+          <div style="font-size:2.1vw;font-weight:800;">投資価値の最大化</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 ライフサイクルで使い分け -->
+  <section class="slide">
+    <div class="eyebrow">使い分け：物件の一生（取得〜売却）で見る</div>
+    <h2>どの場面で、どちらが活きるか</h2>
+    <div class="lifecycle">
+      <div class="lc-rail">
+        <div class="node ph-ccim"><div class="dot"></div></div>
+        <div class="node ph-pm"><div class="dot"></div></div>
+        <div class="node ph-pm"><div class="dot"></div></div>
+        <div class="node ph-ccim"><div class="dot"></div></div>
+      </div>
+      <div class="lc-labels">
+        <div class="lc-col ph-ccim"><div class="ttl">① 取得</div><div class="who">CCIM</div><div class="dd">買うべきか・適正価格か・利回りは合うかを分析</div></div>
+        <div class="lc-col ph-pm"><div class="ttl">② 運営・価値向上</div><div class="who">CPM®</div><div class="dd">賃料・空室・経費・修繕を最適化してもうけを引き上げる</div></div>
+        <div class="lc-col ph-pm"><div class="ttl">③ 保有判断</div><div class="who">CPM® + CCIM</div><div class="dd">運営実績を踏まえ、保有継続か再投資かを検討</div></div>
+        <div class="lc-col ph-ccim"><div class="ttl">④ 売却</div><div class="who">CCIM</div><div class="dd">市場を読み、最も高く売れるタイミングと価格を判断</div></div>
+      </div>
+    </div>
+    <p style="margin-top:1vh;font-size:1.2vw;color:var(--sub);text-align:center;">入口と出口は <b style="color:var(--ccim-d)">CCIM</b>、保有中の価値づくりは <b style="color:var(--pm-d)">CPM®</b>。</p>
+  </section>
+
+  <!-- 11 こんな時はどっち -->
+  <section class="slide">
+    <div class="eyebrow">オーナー様の「お悩み」で選ぶ</div>
+    <h2>こんな時は、どちらに相談？</h2>
+    <div class="twocol">
+      <div class="card pm">
+        <span class="badge">CPM® に相談</span>
+        <ul>
+          <li>空室が埋まらない／賃料を上げたい</li>
+          <li>管理コストが高い気がする</li>
+          <li>収支がどんぶり勘定で見えない</li>
+          <li>修繕計画やトラブル対応を任せたい</li>
+          <li>今ある物件の利益をもっと出したい</li>
+        </ul>
+      </div>
+      <div class="card ccim">
+        <span class="badge">CCIM に相談</span>
+        <ul>
+          <li>物件を買おうか迷っている</li>
+          <li>提示価格が妥当か知りたい</li>
+          <li>今が売り時か判断したい</li>
+          <li>複数の投資先で迷っている</li>
+          <li>このエリアの市場が知りたい</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 まとめ -->
+  <section class="slide summary">
+    <div class="eyebrow" style="color:#bfe0d6;">まとめ</div>
+    <h1>資産価値は、両輪で最大化する</h1>
+    <div class="wheel">
+      <div class="w"><h4><svg style="width:1.7vw;height:1.7vw;vertical-align:-.25em;margin-right:.4em" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>CPM®｜運営の脳</h4><p>持っている物件を、いかに高く稼がせ続けるか。<br>日々の経営で資産価値を守り・高める。</p></div>
+      <div class="w"><h4><svg style="width:1.7vw;height:1.7vw;vertical-align:-.25em;margin-right:.4em" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>CCIM｜投資の脳</h4><p>買う・売る・投資する判断を、いかに正しく行うか。<br>入口と出口で資産を正しく増やす。</p></div>
+    </div>
+    <div class="punch">正しく買い（CCIM）、上手に運営する（CPM®）。<br>この両輪がそろって、オーナー様の収益は最大になる。</div>
+  </section>
+
+</div>
+
+<div class="progress" style="display:none"></div>
+<div class="counter" id="counter">1 / 12</div>
+<div class="nav">
+  <button id="prev">‹</button>
+  <button id="next">›</button>
+</div>
+<div class="hint">← → キーでページ送り</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const counter=document.getElementById('counter');
+  const prog=document.getElementById('prog');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    counter.textContent=(i+1)+' / '+slides.length;
+    prog.style.width=((i)/(slides.length-1)*100)+'%';
+    // counter color on dark slides
+    const dark=slides[i].classList.contains('title')||slides[i].classList.contains('summary');
+    counter.style.color=dark?'#cfe6dd':'';
+  }
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();show(i+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+    if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
+  });
+  show(0);
+</script>
+</body>
+</html>
