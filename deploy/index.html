@@ -224,10 +224,10 @@
   .vtbar{display:grid;grid-template-columns:1.45fr 1fr 1fr;background:#fff;border-radius:16px;overflow:hidden;}
   .vtbar>div{padding:1.5vh 1.1vw;display:flex;flex-direction:column;justify-content:center;}
   .vt-hk{justify-content:flex-end;font-size:.92vw;font-weight:800;color:var(--sub);border-right:2px solid var(--line);border-bottom:4px solid #2a3a4d;}
-  .vt-ho{text-align:center;align-items:center;font-weight:800;font-size:1.22vw;color:var(--ink);border-bottom:4px solid #2a3a4d;}
+  .vt-ho{position:relative;text-align:center;align-items:center;font-weight:800;font-size:1.22vw;color:var(--ink);border-bottom:4px solid #2a3a4d;}
   .vt-ho small{font-size:.82vw;color:var(--sub);font-weight:600;margin-top:.35vh;}
   .vt-ho.win{color:var(--pm-d);background:var(--pm-l);border-bottom-color:var(--pm);}
-  .vt-ho .badge{font-size:.74vw;color:#fff;background:var(--pm);padding:.18em .7em;border-radius:999px;margin-top:.5vh;}
+  .vt-ho .badge{position:absolute;top:.6vh;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.74vw;color:#fff;background:var(--pm);padding:.18em .7em;border-radius:999px;}
   .vt-k{font-weight:800;font-size:1.12vw;color:var(--ccim-d);border-right:2px solid var(--line);border-top:1px solid var(--line);}
   .vt-k small{font-size:.84vw;color:var(--sub);font-weight:600;margin-top:.35vh;line-height:1.35;}
   .vt-v{text-align:center;font-size:1.15vw;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;border-top:1px solid var(--line);}
@@ -788,7 +788,7 @@
         <div class="tbar-cap">5つの財務キー　[ N ]　[ I/YR ]　[ PV ]　[ PMT ]　[ FV ]　で所有とリースを比較</div>
         <div class="vtbar">
           <div class="vt-hk">財務キー</div>
-          <div class="vt-ho win">所有（買う）<small>頭金を投下</small><span class="badge">◀ 有利</span></div>
+          <div class="vt-ho win"><span class="badge">◀ 有利</span>所有（買う）<small>頭金を投下</small></div>
           <div class="vt-ho">リース（借りる）<small>浮いた資金を運用</small></div>
 
           <div class="vt-k">N<small>期間（年）</small></div><div class="vt-v cw">10</div><div class="vt-v">10</div>
