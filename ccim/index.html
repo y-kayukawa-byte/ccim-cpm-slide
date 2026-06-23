@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>米国認定商業不動産投資士 CCIM ｜ 株式会社フロンティアホーム</title>
+<meta name="description" content="オーナー様の資産価値を最大化する、世界水準のプロフェッショナル「CCIM®」。市場分析とキャッシュフロー分析で「いくらで買い、いつ売るか」を数字で導く投資のプロが、株式会社フロンティアホームの不動産投資をサポートします。" />
+<style>
+  :root{
+    --navy:#1f3d5c;
+    --navy-d:#142b42;
+    --navy-l:#eaeef3;
+    --gold:#bb8a3e;
+    --gold-d:#9c7330;
+    --gold-l:#f3ead7;
+    --ink:#2c2722;
+    --sub:#6b6258;
+    --line:#e7e0d4;
+    --bg:#f6f2ea;
+    --cream:#fbf9f4;
+    --white:#fff;
+    --radius:14px;
+    --radius-s:10px;
+    --shadow:0 18px 50px -22px rgba(40,32,20,.22),0 4px 12px rgba(40,32,20,.05);
+    --serif:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    --maxw:1140px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",system-ui,sans-serif;
+    color:var(--ink);background:var(--white);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  b{font-weight:700}
+  .serif{font-family:var(--serif);font-weight:600}
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:60;padding:20px 0;transition:.35s;
+    background:rgba(255,255,255,0);
+  }
+  header.nav.scrolled{background:rgba(251,249,244,.95);backdrop-filter:blur(10px);box-shadow:0 4px 20px -16px rgba(40,32,20,.6);padding:13px 0}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;flex-direction:column;letter-spacing:.04em;color:#fff;transition:color .35s;line-height:1.35}
+  .brand .bn{font-family:var(--serif);font-weight:600;font-size:18px}
+  header.nav.scrolled .brand{color:var(--ink)}
+  .brand small{display:block;font-size:10px;font-weight:500;letter-spacing:.18em;opacity:.75}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:13.5px;font-weight:600;letter-spacing:.04em;color:#f1ece2;transition:color .2s}
+  header.nav.scrolled .nav-links a{color:var(--sub)}
+  .nav-links a:hover{color:var(--gold)}
+  .nav-cta{
+    background:var(--gold);color:#fff!important;
+    padding:10px 22px;border-radius:4px;font-weight:600;letter-spacing:.08em;box-shadow:0 8px 20px -10px rgba(187,138,62,.8);
+  }
+  .nav-cta:hover{background:var(--gold-d);transform:translateY(-1px)}
+  @media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;overflow:hidden;padding:140px 0 100px;
+    background:#142b42;
+  }
+  .hero .bgphoto{
+    position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+    background-image:url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80");
+    transform:scale(1.04);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(20,43,66,.92) 0%,rgba(20,43,66,.78) 45%,rgba(20,43,66,.45) 100%);
+  }
+  .hero .wrap{position:relative;z-index:2}
+  .slogan{font-size:13px;font-weight:600;letter-spacing:.26em;color:#d9c79e;margin-bottom:22px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.8em;font-size:12.5px;font-weight:600;letter-spacing:.18em;
+    color:#e7ddca;margin-bottom:26px;
+  }
+  .eyebrow::before{content:"";width:30px;height:1.5px;background:var(--gold)}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.2vw,54px);line-height:1.45;letter-spacing:.02em;margin-bottom:30px}
+  .hero h1 .gold{color:#e3c98c}
+  .hero p.lead{font-size:clamp(14.5px,1.9vw,17.5px);color:#e6e1d6;max-width:660px;margin-bottom:40px;line-height:2}
+  .hero p.lead .lb{display:inline}
+  @media(max-width:600px){.hero p.lead .lb{display:none}}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 34px;border-radius:5px;font-weight:600;font-size:15px;letter-spacing:.06em;transition:transform .2s,box-shadow .2s,background .2s}
+  .btn-primary{background:var(--gold);color:#fff;box-shadow:0 16px 36px -16px rgba(187,138,62,.9)}
+  .btn-primary:hover{background:var(--gold-d);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.45);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+  .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;color:#cdbf9f;font-size:10px;letter-spacing:.26em;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .scroll-hint .line{width:1px;height:42px;background:linear-gradient(var(--gold),transparent);animation:drop 1.9s infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ---------- Section base ---------- */
+  section{padding:112px 0;position:relative}
+  .sec-head{max-width:760px;margin:0 auto 60px;text-align:center}
+  .sec-tag{display:block;color:var(--gold);font-weight:600;font-size:12px;letter-spacing:.26em;text-transform:uppercase;margin-bottom:18px}
+  .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(25px,3.7vw,37px);line-height:1.55;letter-spacing:.03em;margin-bottom:20px}
+  .sec-head p{color:var(--sub);font-size:16px;line-height:2}
+
+  /* ---------- Definition ---------- */
+  .define{background:var(--bg)}
+  .define .panel{
+    background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
+    display:grid;grid-template-columns:1fr 1fr;
+  }
+  @media(max-width:860px){.define .panel{grid-template-columns:1fr}}
+  .define .photo{min-height:340px;background-color:#d8cdba;background-size:cover;background-position:center;
+    background-image:url("https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80");}
+  .define .body{padding:54px 50px}
+  @media(max-width:600px){.define .body{padding:40px 28px}}
+  .define .ptop{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+  .plogo{height:54px;width:auto}
+  .pki{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d)}
+  .define h3{font-family:var(--serif);font-weight:600;font-size:clamp(21px,2.9vw,28px);line-height:1.55;color:var(--navy);margin-bottom:22px;letter-spacing:.02em}
+  .define p{font-size:15px;color:var(--sub);margin-bottom:16px;line-height:2.05}
+  .define .qbox{margin-top:8px;border-left:3px solid var(--gold);padding:6px 0 6px 18px}
+  .define .qbox .q{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--navy);line-height:1.7}
+  .define .qbox .q + .q{margin-top:12px}
+
+  /* ---------- Merits ---------- */
+  .merits{background:var(--cream)}
+  .merits .three{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  @media(max-width:880px){.merits .three{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+  .merit{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s}
+  .merit:hover{transform:translateY(-6px);box-shadow:0 28px 60px -24px rgba(40,32,20,.3)}
+  .merit .mphoto{height:190px;background-color:#d8cdba;background-size:cover;background-position:center;position:relative}
+  .merit .mphoto .no{position:absolute;left:18px;bottom:14px;color:#fff;font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:.16em;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+  .merit .mbody{padding:30px 28px 34px}
+  .merit h3{font-family:var(--serif);font-weight:600;font-size:19px;color:var(--navy);line-height:1.55;margin-bottom:16px;letter-spacing:.02em}
+  .merit ul{list-style:none}
+  .merit li{font-size:14px;color:var(--sub);padding:10px 0 10px 22px;position:relative;border-top:1px solid var(--line);line-height:1.8}
+  .merit li:first-child{border-top:none}
+  .merit li::before{content:"";position:absolute;left:0;top:18px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+  /* ---------- Investment framework ---------- */
+  .ifw{background:var(--bg)}
+  .flow{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .frow{display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-s);padding:20px 24px;box-shadow:0 6px 18px -12px rgba(40,32,20,.18)}
+  .frow .abbr{flex:none;width:90px;font-family:var(--serif);font-size:21px;font-weight:600;color:var(--navy);letter-spacing:.02em}
+  .frow .ft{font-size:15.5px;font-weight:700;color:var(--ink)}
+  .frow .fd{font-size:13px;color:var(--sub);margin-top:4px;line-height:1.75}
+  .frow.key{background:var(--navy);border-color:transparent}
+  .frow.key .abbr{color:#e3c98c} .frow.key .ft{color:#fff} .frow.key .fd{color:#cdd6e0}
+  .frow.gold{background:var(--gold-l);border-color:#e8d4ac}
+  .frow.gold .abbr{color:var(--gold-d)}
+  .fop{text-align:center;color:var(--gold-d);font-size:12.5px;font-weight:600;letter-spacing:.14em}
+  .ifw-note{text-align:center;margin-top:38px;font-size:15.5px;color:var(--sub);line-height:2}
+  .ifw-note b{color:var(--navy)}
+
+  /* ---------- Company appeal ---------- */
+  .appeal{position:relative;color:#fff;overflow:hidden;background:#142b42}
+  .appeal .bgphoto{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+    background-image:url("https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=2000&q=80");}
+  .appeal::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(120deg,rgba(20,43,66,.95),rgba(20,43,66,.8))}
+  .appeal .wrap{position:relative;z-index:2}
+  .appeal .ahead{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:20px}
+  .lic-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.06em;padding:.5em 1.2em;border-radius:999px;border:1px solid rgba(227,201,140,.5);background:rgba(227,201,140,.14)}
+  .lic-badge .d{width:8px;height:8px;border-radius:50%;background:#e3c98c}
+  .appeal h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.6vw,34px);line-height:1.6;margin-bottom:22px;letter-spacing:.03em}
+  .appeal h2 .gold{color:#e3c98c}
+  .appeal .lead{font-size:16px;color:#dde2da;max-width:780px;margin-bottom:48px;line-height:2.05}
+  .appeal .points{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:820px){.appeal .points{grid-template-columns:1fr}}
+  .apoint{border-top:2px solid rgba(227,201,140,.5);padding-top:24px}
+  .apoint .ic{width:46px;height:46px;display:grid;place-items:center;margin-bottom:16px}
+  .apoint .ic svg{width:30px;height:30px}
+  .apoint h4{font-family:var(--serif);font-weight:600;font-size:18px;margin-bottom:12px;letter-spacing:.02em}
+  .apoint p{font-size:14px;color:#cdd6cf;line-height:1.95}
+
+  /* ---------- CTA / Contact ---------- */
+  .cta{background:var(--navy-d);color:#fff;text-align:center}
+  .cta h2{font-family:var(--serif);font-weight:600;font-size:clamp(25px,4.2vw,40px);line-height:1.55;margin-bottom:22px;letter-spacing:.04em}
+  .cta h2 .gold{color:#e3c98c}
+  .cta .lead{font-size:16px;color:#cdd6e0;max-width:640px;margin:0 auto 40px;line-height:2}
+  .cta .hero-cta{justify-content:center;margin-bottom:70px}
+  .offices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:980px;margin:0 auto;text-align:left}
+  @media(max-width:820px){.offices{grid-template-columns:1fr;max-width:420px}}
+  .office{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius-s);padding:30px 28px}
+  .office .on{font-family:var(--serif);font-size:18px;font-weight:600;color:#e3c98c;margin-bottom:16px;letter-spacing:.04em}
+  .office .row{display:flex;gap:11px;font-size:13.5px;color:#dbe1e8;margin-bottom:9px;align-items:flex-start;line-height:1.7}
+  .office .row svg{width:16px;height:16px;flex:none;margin-top:3px;color:#9bb0c6}
+  .office .tel{font-family:var(--serif);font-size:22px;font-weight:600;color:#fff;margin-top:8px;letter-spacing:.04em}
+
+  /* ---------- Footer ---------- */
+  footer{background:#0f2032;color:#8a9bb0;padding:50px 0 38px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  footer .brand{color:#fff}
+  footer .fnote{font-size:12.5px;line-height:1.85}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.18s}.reveal.d3{transition-delay:.28s}.reveal.d4{transition-delay:.38s}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.scroll-hint .line{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="bn">株式会社フロンティアホーム</span><small>みんなにもっと、いい暮らし</small></a>
+    <nav class="nav-links">
+      <a href="#about">CCIMとは</a>
+      <a href="#merits">3つのメリット</a>
+      <a href="#framework">投資分析</a>
+      <a href="#company">選ばれる理由</a>
+      <a class="nav-cta" href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="bgphoto"></div>
+  <div class="wrap">
+    <div class="slogan">みんなにもっと、いい暮らし</div>
+    <div class="eyebrow">米国認定商業不動産投資士</div>
+    <h1>オーナー様の<span class="gold">資産</span>を最大化する、<br>世界水準のプロフェッショナル<br><span class="gold">「CCIM®」</span></h1>
+    <p class="lead">
+      不動産投資の成否は、「いくらで買い、どう運用し、いつ売るか」で決まります。<br class="lb" />
+      CCIM® は、市場分析とキャッシュフロー分析で<b>その答えを数字で導く</b>、<br class="lb" />
+      世界水準の投資のプロフェッショナルです。
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        お問い合わせ
+      </a>
+      <a class="btn btn-ghost" href="#about">CCIM® について知る</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="line"></span>SCROLL</div>
+</section>
+
+<!-- ===== DEFINITION ===== -->
+<section class="define" id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">What is CCIM</span>
+      <h2>CCIM® とは、世界が認める<br>商業不動産投資の称号です</h2>
+      <p>単なる売買仲介ではなく、投資としての価値を最大化する高度な分析力・知識・倫理観を備えたグローバルライセンスです。</p>
+    </div>
+    <div class="panel reveal">
+      <div class="photo" role="img" aria-label="商業不動産のイメージ"></div>
+      <div class="body">
+        <div class="ptop">
+          <img class="plogo" src="assets/ccim-logo.png" alt="CCIM ロゴ" onerror="this.style.display='none'" />
+          <span class="pki">Certified Commercial Investment Member</span>
+        </div>
+        <h3>米国認定商業不動産投資士「CCIM®」</h3>
+        <p>
+          <b>CCIM®（Certified Commercial Investment Member／米国認定商業不動産投資士）</b> は、米国の <b>CCIM協会</b> が認定する、商業用不動産投資のスペシャリスト資格です。
+        </p>
+        <p>
+          取得には、キャッシュフロー分析・市場分析・投資判断・交渉・倫理に関する体系的な教育課程と、実務実績の審査をクリアする必要があります。世界各国で通用する、不動産投資分野の最高峰ライセンスのひとつです。
+        </p>
+        <div class="qbox">
+          <div class="q">この物件、本当に買うべき？　適正価格はいくら？</div>
+          <div class="q">今が売り時？　いくらで売り抜けられる？</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MERITS ===== -->
+<section class="merits" id="merits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">3 Merits</span>
+      <h2>CCIM® がオーナー様にもたらす<br>3つのメリット</h2>
+      <p>投資の「入口」から「出口」まで。資産を正しく増やすための専門性を発揮します。</p>
+    </div>
+    <div class="three">
+      <div class="merit reveal d1">
+        <div class="mphoto" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80')"><span class="no">MERIT 01</span></div>
+        <div class="mbody">
+          <h3>投資判断の最適化</h3>
+          <ul>
+            <li>市場分析と競合比較による適正取得価格の見極め</li>
+            <li>Cap Rate・IRR を用いた収益性の定量評価</li>
+            <li>「買うべきか・見送るべきか」を数字で判断</li>
+          </ul>
+        </div>
+      </div>
+      <div class="merit reveal d2">
+        <div class="mphoto" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80')"><span class="no">MERIT 02</span></div>
+        <div class="mbody">
+          <h3>出口戦略・売却の最大化</h3>
+          <ul>
+            <li>市場サイクルを読んだ最適な売却タイミングの提案</li>
+            <li>保有・再投資・売却のシナリオ比較分析</li>
+            <li>最も高く売り抜けるための価格・条件設計</li>
+          </ul>
+        </div>
+      </div>
+      <div class="merit reveal d3">
+        <div class="mphoto" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80')"><span class="no">MERIT 03</span></div>
+        <div class="mbody">
+          <h3>世界基準の倫理観と分析力</h3>
+          <ul>
+            <li>CCIM協会の倫理規定に基づく誠実で透明性の高い助言</li>
+            <li>世界共通の投資分析メソッドによる客観的な提案</li>
+            <li>キャッシュフローの「見える化」で意思決定を支援</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INVESTMENT FRAMEWORK ===== -->
+<section class="ifw" id="framework">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Investment Analysis</span>
+      <h2>「稼ぐ力」を投資価値に翻訳する</h2>
+      <p>CCIM® は、物件の収益を投資指標へと組み立て直し、価格と利回りを数字で導きます。</p>
+    </div>
+    <div class="flow">
+      <div class="frow reveal d1">
+        <div class="abbr">NOI</div>
+        <div><div class="ft">営業純利益</div><div class="fd">実効総収入から運営費を差し引いた、物件そのものの「稼ぐ力」。</div></div>
+      </div>
+      <div class="fop reveal">÷ 還元利回り（Cap Rate）</div>
+      <div class="frow gold reveal d2">
+        <div class="abbr">価値</div>
+        <div><div class="ft">物件価値（収益価格）</div><div class="fd">NOI ÷ Cap Rate。市場が求める利回りから、適正な取得・売却価格を逆算します。</div></div>
+      </div>
+      <div class="fop reveal">NOI − 年間負債支出（ADS）</div>
+      <div class="frow reveal d3">
+        <div class="abbr">BTCF</div>
+        <div><div class="ft">税引前キャッシュフロー</div><div class="fd">ローン返済後に手元へ残る現金。自己資金に対する効率（Cash-on-Cash）を測ります。</div></div>
+      </div>
+      <div class="fop reveal">保有期間全体で評価</div>
+      <div class="frow key reveal d4">
+        <div class="abbr">IRR</div>
+        <div><div class="ft">内部収益率</div><div class="fd">取得から売却までの全キャッシュフローを織り込んだ、投資全体の最終的な利回り。CCIM® が最重視する判断指標です。</div></div>
+      </div>
+    </div>
+    <p class="ifw-note reveal">「稼ぐ力（<b>NOI</b>）」を「価値」と「<b>IRR</b>」に翻訳できることが、投資のプロ <b>CCIM®</b> の核心です。</p>
+  </div>
+</section>
+
+<!-- ===== COMPANY APPEAL ===== -->
+<section class="appeal" id="company">
+  <div class="bgphoto"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="ahead">
+        <span class="sec-tag" style="margin:0">Why Us</span>
+        <span class="lic-badge"><span class="d"></span>CCIM® 有資格者 在籍</span>
+      </div>
+      <h2>世界基準の投資分析を、<span class="gold">地域に根ざした一社</span>で。</h2>
+      <p class="lead">
+        株式会社フロンティアホームは、<b>CCIM®</b>（投資のプロ）の知見を備えた不動産会社です。
+        所沢・東京・川越を拠点に、地域の市場を知り尽くしたチームが、世界基準の分析メソッドで、オーナー様の資産形成をワンストップでお手伝いします。
+      </p>
+    </div>
+    <div class="points">
+      <div class="apoint reveal d1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#e3c98c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h4>世界基準の有資格者が在籍</h4>
+        <p>商業不動産投資の最高峰ライセンス CCIM® の知見で、確かな専門性のご相談に対応します。</p>
+      </div>
+      <div class="apoint reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#e3c98c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div>
+        <h4>取得〜運用〜売却までワンストップ</h4>
+        <p>「いくらで買うか」も「いつ売るか」も、一社で一貫して数字に基づきサポートします。</p>
+      </div>
+      <div class="apoint reveal d3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#e3c98c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3 8 4-16 3 8h4"/></svg></div>
+        <h4>数字に基づく最適提案</h4>
+        <p>感覚ではなく、キャッシュフローと市場分析の数字で、オーナー様に最適なご提案をします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / CONTACT ===== -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>あなたの不動産投資を、<span class="gold">世界基準</span>で。</h2>
+      <p class="lead">取得・運用・売却のご相談は、フロンティアホームへ。各拠点でお気軽にお問い合わせください。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://frontier-home.co.jp/cpm/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          お問い合わせフォーム
+        </a>
+      </div>
+    </div>
+    <div class="offices">
+      <div class="office reveal d1">
+        <div class="on">所沢本社</div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>埼玉県所沢市日吉町28-7</span></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>9:30〜18:00（水曜定休）</span></div>
+        <div class="tel">04-2929-2231</div>
+      </div>
+      <div class="office reveal d2">
+        <div class="on">東京ブランチ</div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>東京都新宿区西新宿7-16-11 FORECAST西新宿 5F</span></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>9:30〜18:00（水曜定休）</span></div>
+        <div class="tel">03-5937-3671</div>
+      </div>
+      <div class="office reveal d3">
+        <div class="on">川越ブランチ</div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>埼玉県川越市菅原町7-25</span></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>9:30〜18:00（水曜定休）</span></div>
+        <div class="tel">049-227-4687</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="bn serif">株式会社フロンティアホーム</span></a>
+    <div class="fnote">米国認定商業不動産投資士 CCIM® ／ 出典：CCIM JAPAN<br>※本ページはデモ用です。会社情報は frontier-home.co.jp を参照しています。</div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
