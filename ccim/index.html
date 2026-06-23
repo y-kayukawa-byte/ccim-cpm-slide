@@ -44,10 +44,11 @@
   }
   header.nav.scrolled{background:rgba(251,249,244,.95);backdrop-filter:blur(10px);box-shadow:0 4px 20px -16px rgba(40,32,20,.6);padding:13px 0}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between}
-  .brand{display:flex;flex-direction:column;letter-spacing:.04em;color:#fff;transition:color .35s;line-height:1.35}
-  .brand .bn{font-family:var(--serif);font-weight:600;font-size:18px}
-  header.nav.scrolled .brand{color:var(--ink)}
-  .brand small{display:block;font-size:10px;font-weight:500;letter-spacing:.18em;opacity:.75}
+  .brand{display:flex;align-items:center}
+  .brand .bl{height:30px;width:auto;display:block}
+  .brand .bl-color{display:none}
+  header.nav.scrolled .brand .bl-white{display:none}
+  header.nav.scrolled .brand .bl-color{display:block}
   .nav-links{display:flex;gap:30px;align-items:center}
   .nav-links a{font-size:13.5px;font-weight:600;letter-spacing:.04em;color:#f1ece2;transition:color .2s}
   header.nav.scrolled .nav-links a{color:var(--sub)}
@@ -57,7 +58,11 @@
     padding:10px 22px;border-radius:4px;font-weight:600;letter-spacing:.08em;box-shadow:0 8px 20px -10px rgba(187,138,62,.8);
   }
   .nav-cta:hover{background:var(--gold-d);transform:translateY(-1px)}
-  @media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
+  @media(max-width:880px){
+    .nav-links a:not(.nav-cta){display:none}
+    .nav-cta{padding:7px 15px;font-size:12px;letter-spacing:.04em}
+    .brand .bl{height:24px}
+  }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -190,7 +195,7 @@
   /* ---------- Footer ---------- */
   footer{background:#0f2032;color:#8a9bb0;padding:50px 0 38px}
   footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
-  footer .brand{color:#fff}
+  footer .brand .fbl{height:26px;width:auto}
   footer .fnote{font-size:12.5px;line-height:1.85}
 
   /* ---------- Reveal ---------- */
@@ -205,7 +210,10 @@
 <!-- ===== NAV ===== -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#top"><span class="bn">株式会社フロンティアホーム</span><small>みんなにもっと、いい暮らし</small></a>
+    <a class="brand" href="#top" aria-label="株式会社フロンティアホーム">
+      <img class="bl bl-white" src="assets/logo_frontier-home_white.svg" alt="株式会社フロンティアホーム" />
+      <img class="bl bl-color" src="assets/logo_frontier-home.svg" alt="株式会社フロンティアホーム" />
+    </a>
     <nav class="nav-links">
       <a href="#about">CCIMとは</a>
       <a href="#strategy">CCIMの戦略</a>
@@ -443,7 +451,7 @@
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
-    <a class="brand" href="#top"><span class="bn serif">株式会社フロンティアホーム</span></a>
+    <a class="brand" href="#top" aria-label="株式会社フロンティアホーム"><img class="bl bl-white fbl" src="assets/logo_frontier-home_white.svg" alt="株式会社フロンティアホーム" /></a>
     <div class="fnote">米国認定商業不動産投資士 CCIM ／ 出典：CCIM JAPAN<br>※本ページはデモ用です。会社情報は frontier-home.co.jp を参照しています。</div>
   </div>
 </footer>
